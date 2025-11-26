@@ -115,6 +115,8 @@ function setupCertifications() {
     "AI/ML Engineer - Stage 1 & 2 - SLIIT",
     "Machine Learning in Production - DeepLearning.AI",
     "Machine Learning on Google Cloud Specialization",
+    "Google Advanced Data Analytics Professional Certificate",
+    "Microsoft Power BI Data Analyst Professional Certificate",
     "Generative AI with Large Language Models - DeepLearning.AI",
     "Mathematics for Machine Learning and Data Science Specialization - DeepLearning.AI",
     "Introduction to Statistics - Stanford University",
@@ -351,3 +353,4 @@ function setupSkillTagAnimation() {
     }, 500);
   });
 }
+
