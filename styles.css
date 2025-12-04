@@ -654,7 +654,7 @@ h1.gradient-text * {
 }
 
 .certification-scroll.expanded {
-  max-height: 1500px;
+  max-height: 5000px;
 }
 
 .certification-scroll:not(.expanded)::after {
@@ -1093,3 +1093,4 @@ h1.gradient-text * {
     padding: 2rem !important;
   }
 }
+
