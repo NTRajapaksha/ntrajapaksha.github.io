@@ -621,7 +621,6 @@ h1.gradient-text * {
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
   transform: translateY(20px);
-  height: 1000px;
 }
 
 .achievement-card.visible {
@@ -1094,5 +1093,6 @@ h1.gradient-text * {
     padding: 2rem !important;
   }
 }
+
 
 
