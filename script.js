@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Setup certifications
 function setupCertifications() {
   const certifications = [
-    "MLOps Specialization offered by Duke University"
+    "MLOps Specialization offered by Duke University",
     "Google Data Analytics Professional Certificate",
     "Google Business Intelligence Professional Certificate",
     "Deep Learning Specialization - DeepLearning.AI",
@@ -354,5 +354,6 @@ function setupSkillTagAnimation() {
     }, 500);
   });
 }
+
 
 
