@@ -98,10 +98,21 @@ document.addEventListener("DOMContentLoaded", () => {
   // Setup project reveal functionality
   setupProjectReveal();
 
-  //Setup skill tag animations
   setupSkillTagAnimation();
 
   setupActiveNavigation();
+
+  // Initialize New Libraries
+  initTypewriter();
+  initParticles();
+  
+  if (typeof AOS !== 'undefined') {
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100
+    });
+  }
 });
 
 // Setup certifications
@@ -153,19 +164,40 @@ function setupCertifications() {
     });
 
     let isExpanded = false;
-
-    // Initially show first 3 certifications (increased from 2)
     const initialVisibleCount = 3;
-    const certItems = document.querySelectorAll(".cert-item");
+    const certItemsElements = document.querySelectorAll(".cert-item");
+    const certItems = Array.from(certItemsElements);
 
-    // Make first few certificates visible initially
+    // Initial state: first 3 are visible
     certItems.forEach((cert, index) => {
       if (index < initialVisibleCount) {
         setTimeout(() => {
           cert.classList.add("visible");
+          cert.style.opacity = "1";
+          cert.style.transform = "translateY(0)";
         }, index * 200);
       }
     });
+
+    const hiddenCerts = certItems.slice(initialVisibleCount);
+    
+    // Create animatable wrapper for hidden certs
+    const wrapper = document.createElement("div");
+    wrapper.className = "certs-wrapper";
+    wrapper.style.overflow = "hidden";
+    wrapper.style.transition = "height 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
+    wrapper.style.height = "0px";
+
+    // Move hidden certs into wrapper
+    hiddenCerts.forEach(cert => {
+      cert.style.display = "block";
+      cert.style.opacity = "0";
+      cert.style.transform = "translateY(10px)";
+      cert.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+      wrapper.appendChild(cert);
+    });
+
+    certScroll.appendChild(wrapper);
 
     // Setup show more/less functionality
     showMoreCertsBtn.addEventListener("click", () => {
@@ -173,21 +205,42 @@ function setupCertifications() {
       certScroll.classList.toggle("expanded");
 
       if (isExpanded) {
-        // Show all certifications with staggered animation
-        certItems.forEach((item, index) => {
-          if (index >= initialVisibleCount) {
-            setTimeout(() => {
-              item.classList.add("visible");
-            }, (index - initialVisibleCount) * 100);
-          }
+        // Expand
+        wrapper.style.height = wrapper.scrollHeight + "px";
+
+        // Stagger fade in
+        hiddenCerts.forEach((item, index) => {
+          setTimeout(() => {
+            item.style.opacity = "1";
+            item.style.transform = "translateY(0)";
+          }, 50 + index * 30);
         });
+
+        setTimeout(() => {
+          if (isExpanded) wrapper.style.height = "auto";
+        }, 400);
+
       } else {
-        // Hide certifications beyond the initial count
-        certItems.forEach((item, index) => {
-          if (index >= initialVisibleCount) {
-            item.classList.remove("visible");
-          }
+        // Contract
+        wrapper.style.height = wrapper.scrollHeight + "px";
+        
+        // Scroll back up gently
+        const certSection = document.getElementById("certifications");
+        if (certSection) {
+          certSection.scrollIntoView({ behavior: "smooth" });
+        }
+
+        // Force reflow
+        wrapper.offsetHeight;
+
+        // Fade all out
+        hiddenCerts.forEach((item) => {
+          item.style.opacity = "0";
+          item.style.transform = "translateY(10px)";
         });
+
+        // Shrink height
+        wrapper.style.height = "0px";
       }
 
       showMoreCertsBtn.innerHTML = isExpanded
@@ -256,26 +309,90 @@ function setupActiveNavigation() {
 // Setup project reveal functionality
 function setupProjectReveal() {
   const showMoreBtn = document.getElementById("showMoreBtn");
-  const hiddenProjects = document.querySelectorAll(".hidden-project");
+  const hiddenProjectsElements = document.querySelectorAll(".hidden-project");
   let projectsVisible = false;
 
-  if (showMoreBtn && hiddenProjects.length > 0) {
-    showMoreBtn.addEventListener("click", () => {
-      projectsVisible = !projectsVisible; // Toggle state first
+  if (showMoreBtn && hiddenProjectsElements.length > 0) {
+    // Convert to array for manipulation
+    const hiddenProjects = Array.from(hiddenProjectsElements);
+    const originalRow = hiddenProjects[0].closest(".row");
 
-      hiddenProjects.forEach((project, index) => {
+    // Create animatable wrapper
+    const wrapper = document.createElement("div");
+    wrapper.className = "projects-wrapper";
+    wrapper.style.overflow = "hidden";
+    wrapper.style.transition = "height 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
+    wrapper.style.height = "0px";
+    wrapper.style.padding = "0 4px"; // Prevent card border clipping at edges
+
+    // Create an inner row to maintain Bootstrap grid behavior
+    const innerRow = document.createElement("div");
+    innerRow.className = "row g-4 justify-content-center mt-0";
+
+    // Move hidden projects to inner row
+    hiddenProjects.forEach((project) => {
+      // Initialize state
+      project.style.display = "block";  // Block layout is required for scrollHeight calculation
+      project.style.opacity = "0";
+      project.style.transform = "translateY(20px)";
+      project.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+      innerRow.appendChild(project);
+    });
+
+    wrapper.appendChild(innerRow);
+    // Insert wrapper into the DOM directly after the primary row
+    originalRow.parentNode.insertBefore(wrapper, originalRow.nextSibling);
+
+    showMoreBtn.addEventListener("click", () => {
+      projectsVisible = !projectsVisible;
+
+      if (projectsVisible) {
+        // Expand phase:
+        const targetHeight = innerRow.scrollHeight;
+        wrapper.style.height = targetHeight + "px";
+
+        // Stagger fade in
+        hiddenProjects.forEach((project, index) => {
+          setTimeout(() => {
+            project.style.opacity = "1";
+            project.style.transform = "translateY(0)";
+          }, 50 + index * 40); // Fast, smooth stagger
+        });
+
+        // Set to auto after transition so resizing doesn't crop, and switch overflow
+        // to visible so card box-shadows/borders are not clipped
         setTimeout(() => {
           if (projectsVisible) {
-            project.classList.add("show");
-            project.style.display = "block";
-          } else {
-            project.classList.remove("show");
-            setTimeout(() => {
-              project.style.display = "none";
-            }, 500);
+            wrapper.style.height = "auto";
+            wrapper.style.overflow = "visible";
           }
-        }, index * 200);
-      });
+        }, 500);
+
+      } else {
+        // Collapse phase:
+        // Switch overflow back to hidden first so animation clips correctly
+        wrapper.style.overflow = "hidden";
+        // Set fixed height first from auto to trigger CSS transition
+        wrapper.style.height = innerRow.scrollHeight + "px";
+
+        // Optionally smooth scroll to the top of projects section so you don't lose context
+        const projectsSection = document.getElementById("projects");
+        if (projectsSection) {
+          projectsSection.scrollIntoView({ behavior: "smooth" });
+        }
+
+        // Force reflow
+        wrapper.offsetHeight; 
+
+        // Fade all out simultaneously 
+        hiddenProjects.forEach((project) => {
+          project.style.opacity = "0";
+          project.style.transform = "translateY(20px)";
+        });
+
+        // Collapse wrapper smoothly
+        wrapper.style.height = "0px";
+      }
 
       showMoreBtn.innerHTML = projectsVisible
         ? 'Show Less <i class="fas fa-chevron-up ms-2"></i>'
@@ -285,20 +402,6 @@ function setupProjectReveal() {
       setTimeout(() => {
         showMoreBtn.classList.remove("animate__animated", "animate__pulse");
       }, 1000);
-
-      // Optional: scroll to projects section when collapsing
-      if (!projectsVisible) {
-        const projectsSection = document.getElementById("projects");
-        if (projectsSection) {
-          projectsSection.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-    });
-
-    // On load, ensure hidden projects are hidden
-    hiddenProjects.forEach((project) => {
-      project.classList.remove("show");
-      project.style.display = "none";
     });
   }
 }
@@ -355,5 +458,62 @@ function setupSkillTagAnimation() {
   });
 }
 
+// ===== NEW LIBRARY INITIALIZATIONS =====
+
+function initTypewriter() {
+  const typewriterElement = document.getElementById('typewriter-text');
+  if (typewriterElement && typeof Typewriter !== 'undefined') {
+    new Typewriter(typewriterElement, {
+      strings: ['Data Scientist', 'AI/ML Engineer', 'Problem Solver'],
+      autoStart: true,
+      loop: true,
+      delay: 75,
+      deleteSpeed: 50
+    });
+  }
+}
+
+function initParticles() {
+  if (document.getElementById('particles-js') && typeof particlesJS !== 'undefined') {
+    particlesJS('particles-js', {
+      "particles": {
+        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+        "color": { "value": "#00f2fe" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5, "random": false },
+        "size": { "value": 3, "random": true },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#4facfe",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": { "enable": true, "mode": "grab" },
+          "onclick": { "enable": true, "mode": "push" },
+          "resize": true
+        },
+        "modes": {
+          "grab": { "distance": 140, "line_linked": { "opacity": 1 } },
+          "push": { "particles_nb": 4 }
+        }
+      },
+      "retina_detect": true
+    });
+  }
+}
 
 
