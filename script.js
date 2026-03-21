@@ -265,45 +265,69 @@ function setupSmoothScroll() {
   });
 }
 
-// Setup active navigation highlighting on scroll
+// Setup active navigation highlighting on scroll (Optimized for mobile)
 function setupActiveNavigation() {
   const navLinks = document.querySelectorAll(".floating-nav a");
-  const sections = document.querySelectorAll("section[id]");
-
-  function updateActiveNav() {
-    let current = "";
-    const scrollY = window.pageYOffset;
-
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop - 100; // Offset for better triggering
-      const sectionHeight = section.offsetHeight;
-
-      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-        current = section.getAttribute("id");
-      }
-    });
-
-    // Remove active class from all nav links
-    navLinks.forEach((link) => {
-      link.classList.remove("active");
-    });
-
-    // Add active class to current section's nav link
-    if (current) {
-      const activeLink = document.querySelector(
-        `.floating-nav a[href="#${current}"]`
-      );
-      if (activeLink) {
-        activeLink.classList.add("active");
-      }
-    }
+  const sections = Array.from(document.querySelectorAll("section[id]"));
+  
+  let sectionData = [];
+  
+  function calculatePositions() {
+    sectionData = sections.map(section => ({
+      id: section.getAttribute("id"),
+      top: section.offsetTop - 150,
+      bottom: section.offsetTop + section.offsetHeight - 150
+    }));
   }
 
-  // Listen for scroll events
-  window.addEventListener("scroll", updateActiveNav);
+  function updateActiveNav() {
+    const scrollY = window.pageYOffset;
+    let currentId = "";
 
-  // Set initial active state
-  updateActiveNav();
+    for (let i = 0; i < sectionData.length; i++) {
+        if (scrollY >= sectionData[i].top && scrollY < sectionData[i].bottom) {
+            currentId = sectionData[i].id;
+            break;
+        }
+    }
+
+    // Only update DOM if changed
+    navLinks.forEach((link) => {
+      const href = link.getAttribute("href");
+      if (href === `#${currentId}`) {
+          if(!link.classList.contains("active")) link.classList.add("active");
+      } else {
+          if(link.classList.contains("active")) link.classList.remove("active");
+      }
+    });
+  }
+
+  // Initial calculation
+  // Use setTimeout to ensure DOM is fully painted and sized
+  setTimeout(() => {
+      calculatePositions();
+      updateActiveNav();
+  }, 100);
+
+  // Listen for scroll events with requestAnimationFrame and passive flag
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+      if (!ticking) {
+          window.requestAnimationFrame(() => {
+              updateActiveNav();
+              ticking = false;
+          });
+          ticking = true;
+      }
+  }, { passive: true });
+  
+  // Recalculate on resize
+  window.addEventListener("resize", () => {
+      window.requestAnimationFrame(() => {
+          calculatePositions();
+          updateActiveNav();
+      });
+  }, { passive: true });
 }
 
 // Setup project reveal functionality
@@ -406,40 +430,7 @@ function setupProjectReveal() {
   }
 }
 
-// Update this function or add it if it doesn't exist
-document.addEventListener("DOMContentLoaded", () => {
-  // Existing code...
-
-  // Setup floating navigation with achievement section
-  setupFloatingNav();
-});
-
-// Add this new function to script.js
-function setupFloatingNav() {
-  // This assumes you have a floating-nav element in your HTML with nav links
-  const navLinks = document.querySelectorAll(".floating-nav a");
-  const sections = document.querySelectorAll("section");
-
-  // Add active class to the current section's nav icon
-  window.addEventListener("scroll", () => {
-    let current = "";
-
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
-      if (pageYOffset >= sectionTop - 200) {
-        current = section.getAttribute("id");
-      }
-    });
-
-    navLinks.forEach((link) => {
-      link.classList.remove("active");
-      if (link.getAttribute("href") === `#${current}`) {
-        link.classList.add("active");
-      }
-    });
-  });
-}
+// Removed redundant and unoptimized setupFloatingNav listener
 
 function setupSkillTagAnimation() {
   const skillTags = document.querySelectorAll(".skill-tag");
@@ -475,9 +466,12 @@ function initTypewriter() {
 
 function initParticles() {
   if (document.getElementById('particles-js') && typeof particlesJS !== 'undefined') {
+    const isMobile = window.innerWidth <= 768;
+    const particleCount = isMobile ? 30 : 80;
+    
     particlesJS('particles-js', {
       "particles": {
-        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+        "number": { "value": particleCount, "density": { "enable": true, "value_area": 800 } },
         "color": { "value": "#00f2fe" },
         "shape": { "type": "circle" },
         "opacity": { "value": 0.5, "random": false },
