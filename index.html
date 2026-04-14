@@ -137,11 +137,15 @@
 
           <!-- Main Education -->
           <div class="education-card">
-            <h4>BSc (Honours) in Data Science - UGC Approved</h4>
-            <p class="text-muted">
-              National School of Business Management (NSBM) - Homagama, Sri
-              Lanka | Dec 2025
-            </p>
+            <div class="d-flex align-items-center mb-3">
+              <img src="images/logos/nsbm.png" alt="NSBM Logo" style="width: 60px; height: 60px; object-fit: contain;" class="me-4 bg-white rounded p-1">
+              <div>
+                <h4 class="mb-1">BSc (Honours) in Data Science - UGC Approved</h4>
+                <p class="text-muted mb-0">
+                  National School of Business Management (NSBM) - Sri Lanka | Dec 2025
+                </p>
+              </div>
+            </div>
             <p>GPA: 3.76/4.0 (First Class Honours)</p>
             <p>
               Coursework: Machine Learning, Deep Learning, Big Data Analytics,
@@ -151,10 +155,15 @@
           </div>
 
           <div class="education-card">
-            <h4>GCE Advanced Level (Physical Science Stream - Mathematics)</h4>
-            <p class="text-muted">
-              Mahinda Rajapaksha College - Homagama, Sri Lanka | 2020
-            </p>
+            <div class="d-flex align-items-center mb-3">
+              <img src="images/logos/mrc.webp" alt="MRC Logo" style="width: 60px; height: 60px; object-fit: contain;" class="me-4 bg-white rounded p-1">
+              <div>
+                <h4 class="mb-1">GCE Advanced Level (Physical Science Stream - Mathematics)</h4>
+                <p class="text-muted mb-0">
+                  Mahinda Rajapaksha College - Homagama, Sri Lanka | 2020
+                </p>
+              </div>
+            </div>
             <p>3 passes in GCE Advanced Level</p>
             <p>Com. Maths: C, Physics: S, Chemistry: S, English: B</p>
             <h4>GCE Ordinary Level Examination | 2016</h4>
@@ -179,12 +188,12 @@
                     <div>
                       <h5 class="mb-2">In Progress</h5>
                       <div class="certification-card active">
-                        <p class="mb-2">
-                          <strong
-                            >Microsoft AI & ML Engineering Professional Certificate
-                          </strong
-                          >
-                        </p>
+                        <div class="d-flex align-items-center mb-2">
+                          <img src="images/logos/ms.webp" alt="Microsoft Logo" style="width: 45px; height: 45px; object-fit: contain;" class="me-3 bg-white rounded p-1">
+                          <p class="mb-0 fw-medium">
+                            <strong>Microsoft AI & ML Engineering Professional Certificate</strong>
+                          </p>
+                        </div>
                         <div class="progress" style="height: 5px">
                           <div
                             class="progress-bar gradient-bg"
@@ -193,11 +202,12 @@
                         </div>
                       </div>
                       <div class="certification-card active mt-3">
-                        <p class="mb-2">
-                          <strong
-                            >Advanced Machine Learning on Google Cloud</strong
-                          >
-                        </p>
+                        <div class="d-flex align-items-center mb-2">
+                          <img src="images/logos/google.webp" alt="Google Logo" style="width: 45px; height: 45px; object-fit: contain;" class="me-3 bg-white rounded p-1">
+                          <p class="mb-0 fw-medium">
+                            <strong>Advanced Machine Learning on Google Cloud</strong>
+                          </p>
+                        </div>
                         <div class="progress" style="height: 5px">
                           <div
                             class="progress-bar gradient-bg"
@@ -431,10 +441,15 @@
           </h2>
 
           <div class="education-card">
-            <h4>AI Engineer</h4>
-            <p class="text-muted">
-              Codebell PVT LTD, Dikwella Rd, Beliatta, Sri Lanka | Feb 2025 - Feb 2026
-            </p>
+            <div class="d-flex align-items-center mb-3">
+              <img src="images/logos/cb.png" alt="Codebell Logo" style="width: 60px; height: 60px; object-fit: contain;" class="me-4 bg-white rounded p-1">
+              <div>
+                <h4 class="mb-1">AI Engineer</h4>
+                <p class="text-muted mb-0">
+                  Codebell PVT LTD, Sri Lanka | Feb 2025 - Feb 2026
+                </p>
+              </div>
+            </div>
             <ul>
               <li>
                 Developed end-to-end ML pipelines spanning computer vision (CNN transfer learning), NLP (BERT/DistilBERT for text classification, Sentiment Analysis), and traditional ML (XGBoost, hybrid recommenders, contextual bandits) across all production projects achieving nearly 80-90% model accuracy.
@@ -466,10 +481,15 @@
             </ul>
           </div>
           <div class="education-card">
-            <h4>Customer Relations Officer</h4>
-            <p class="text-muted">
-              LB Finance, Sri Lanka | November 2021 - April 2022
-            </p>
+            <div class="d-flex align-items-center mb-3">
+              <img src="images/logos/lb.webp" alt="LB Finance Logo" style="width: 60px; height: 60px; object-fit: contain;" class="me-4 bg-white rounded p-1">
+              <div>
+                <h4 class="mb-1">Customer Relations Officer</h4>
+                <p class="text-muted mb-0">
+                  LB Finance, Sri Lanka | November 2021 - April 2022
+                </p>
+              </div>
+            </div>
             <ul>
               <li>
                 Managed financial reporting processes and maintained accurate customer account documentation.
@@ -492,9 +512,20 @@
       <h2 class="text-center mb-5 display-4 fw-bold gradient-text">
         Projects
       </h2>
-      <div class="row" id="projectsContainer">
 
-        <div class="col-md-6 mb-4">
+      <!-- Project Filters -->
+      <div class="project-filters mb-5 text-center d-flex flex-wrap justify-content-center gap-3">
+        <button class="btn btn-glass filter-btn active rounded-pill px-4" data-filter="all">All</button>
+        <button class="btn btn-glass filter-btn rounded-pill px-4" data-filter="mlops">MLOps & Arch</button>
+        <button class="btn btn-glass filter-btn rounded-pill px-4" data-filter="agents">GenAI & Agents</button>
+        <button class="btn btn-glass filter-btn rounded-pill px-4" data-filter="predictive">Predictive Analytics</button>
+        <button class="btn btn-glass filter-btn rounded-pill px-4" data-filter="cv-nlp">NLP & Vision</button>
+        <button class="btn btn-glass filter-btn rounded-pill px-4" data-filter="analytics">Data Analytics</button>
+      </div>
+
+      <div class="row justify-content-center" id="projectsContainer">
+
+        <div class="col-md-6 mb-4 project-item" data-category="mlops">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -550,7 +581,7 @@
   </div>
 </div>
 
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-4 project-item" data-category="mlops">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -606,7 +637,7 @@
   </div>
 </div>
         
-         <div class="col-md-6 mb-4">
+         <div class="col-md-6 mb-4 project-item" data-category="agents">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -662,7 +693,7 @@
   </div>
 </div>
 
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-4 project-item" data-category="mlops">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -709,7 +740,7 @@
 </div>
        
 
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-4 project-item" data-category="agents">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -764,7 +795,7 @@
 
         
 
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-4 project-item" data-category="agents">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -835,7 +866,7 @@
 
         <!-- hidden projects -->
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="mlops">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -875,7 +906,7 @@
   </div>
 </div>
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="predictive">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -927,7 +958,7 @@
   </div>
 </div>
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="mlops">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -969,7 +1000,7 @@
 </div>
 
          <!-- IoT Energy Consumption Project -->
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="analytics">
           <div class="project-card p-4 h-100 d-flex flex-column">
             <div class="d-flex align-items-center mb-3">
               <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1011,7 +1042,7 @@
           </div>
         </div>
         
- <div class="col-md-6 mb-4 hidden-project">
+ <div class="col-md-6 mb-4 hidden-project project-item" data-category="analytics">
           <div class="project-card p-4 h-100 d-flex flex-column">
             <div class="d-flex align-items-center mb-3">
               <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1054,7 +1085,7 @@
         </div>
 
         <!-- Initially Hidden Projects -->
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="agents">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1100,7 +1131,7 @@
 
 
         
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="agents">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1145,7 +1176,7 @@
   </div>
 </div>
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="predictive">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1186,7 +1217,7 @@
   </div>
 </div>
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="predictive">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1226,7 +1257,7 @@
   </div>
 </div>
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="predictive">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1266,7 +1297,7 @@
   </div>
 </div>
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="cv-nlp">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1307,7 +1338,7 @@
   </div>
 </div>
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="mlops">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1346,7 +1377,7 @@
 
 
         
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="cv-nlp">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1383,7 +1414,7 @@
   </div>
 </div>
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="cv-nlp">
   <div class="project-card p-4 h-100 d-flex flex-column">
     <div class="d-flex align-items-center mb-3">
       <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1421,7 +1452,7 @@
 </div>
 
         <!-- SentiViz Project -->
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="cv-nlp">
           <div class="project-card p-4 h-100 d-flex flex-column">
             <div class="d-flex align-items-center mb-3">
               <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1459,7 +1490,7 @@
           </div>
         </div>
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="analytics">
           <div class="project-card p-4 h-100 d-flex flex-column">
             <div class="d-flex align-items-center mb-3">
               <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1500,7 +1531,7 @@
           </div>
         </div>
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="cv-nlp">
           <div class="project-card p-4 h-100 d-flex flex-column">
             <div class="d-flex align-items-center mb-3">
               <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1542,7 +1573,7 @@
         </div>
 
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="predictive">
           <div class="project-card p-4 h-100 d-flex flex-column">
             <div class="d-flex align-items-center mb-3">
               <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1579,7 +1610,7 @@
           </div>
         </div>
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="cv-nlp">
           <div class="project-card p-4 h-100 d-flex flex-column">
             <div class="d-flex align-items-center mb-3">
               <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1621,7 +1652,7 @@
           </div>
         </div>
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="cv-nlp">
           <div class="project-card p-4 h-100 d-flex flex-column">
             <div class="d-flex align-items-center mb-3">
               <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1662,7 +1693,7 @@
           </div>
         </div>
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="predictive">
           <div class="project-card p-4 h-100 d-flex flex-column">
             <div class="d-flex align-items-center mb-3">
               <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1699,7 +1730,7 @@
           </div>
         </div>
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="analytics">
           <div class="project-card p-4 h-100 d-flex flex-column">
             <div class="d-flex align-items-center mb-3">
               <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1736,7 +1767,7 @@
           </div>
         </div>
 
-        <div class="col-md-6 mb-4 hidden-project">
+        <div class="col-md-6 mb-4 hidden-project project-item" data-category="analytics">
           <div class="project-card p-4 h-100 d-flex flex-column">
             <div class="d-flex align-items-center mb-3">
               <div class="gradient-bg rounded-circle p-3 me-3">
@@ -1916,6 +1947,10 @@
                       <img src="https://seeklogo.com/images/G/google-ai-logo-996E85F6FD-seeklogo.com.png" alt="GenAI" class="skill-tag-logo">
                         GenAI
                     </span>
+                    <span class="skill-tag">
+                      <img src="https://cdn.simpleicons.org/onnx/005CED" alt="ONNX" class="skill-tag-logo">
+                        ONNX
+                    </span>
                   </div>
               </div>
   
@@ -1987,6 +2022,26 @@
                           <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" class="skill-tag-logo">
                           Docker
                       </span>
+                      <span class="skill-tag">
+                          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apacheairflow/apacheairflow-original.svg" alt="Apache Airflow" class="skill-tag-logo">
+                          Airflow
+                      </span>
+                      <span class="skill-tag">
+                          <img src="https://www.vectorlogo.zone/logos/databricks/databricks-icon.svg" alt="Databricks" class="skill-tag-logo">
+                          Databricks
+                      </span>
+                      <span class="skill-tag">
+                          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg" alt="Kafka" class="skill-tag-logo">
+                          Kafka
+                      </span>
+                      <span class="skill-tag">
+                          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" class="skill-tag-logo">
+                          PostgreSQL
+                      </span>
+                      <span class="skill-tag">
+                          <img src="https://www.vectorlogo.zone/logos/microsoft_azure/microsoft_azure-icon.svg" alt="Cosmos DB" class="skill-tag-logo">
+                          Cosmos DB
+                      </span>
                   </div>
               </div>
   
@@ -2025,6 +2080,10 @@
                       <span class="skill-tag">
                           <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" class="skill-tag-logo">
                           Git
+                      </span>
+                      <span class="skill-tag">
+                          <img src="https://cdn.simpleicons.org/streamlit/FF4B4B" alt="Streamlit" class="skill-tag-logo">
+                          Streamlit
                       </span>
                   </div>
               </div>
