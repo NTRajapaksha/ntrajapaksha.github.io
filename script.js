@@ -134,7 +134,7 @@ function setupCertifications() {
     { title: "Microsoft Power BI Data Analyst Professional Certificate", logo: "images/logos/ms.webp", link: "#" },
     { title: "Generative AI with Large Language Models - DeepLearning.AI", logo: "images/logos/dl.webp", link: "#" },
     { title: "Mathematics for Machine Learning and Data Science Specialization - DeepLearning.AI", logo: "images/logos/dl.webp", link: "#" },
-    { title: "Introduction to Statistics - Stanford University", logo: "images/logos/Stanford.png", link: "#" },
+    { title: "Introduction to Statistics - Stanford University", logo: "images/logos/su.webp", link: "#" },
     { title: "Introduction to Data Science in Python - University of Michigan", logo: "images/logos/michigan.png", link: "#" },
     { title: "Google AI Essentials - Google", logo: "images/logos/google.webp", link: "#" },
     { title: "AWS Fundamentals Specialization - Amazon Web Services (AWS)", logo: "images/logos/aws.jpg", link: "#" },
