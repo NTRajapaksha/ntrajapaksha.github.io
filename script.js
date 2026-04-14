@@ -125,7 +125,7 @@ function setupCertifications() {
     { title: "Google Data Analytics Professional Certificate", logo: "images/logos/google.webp", link: "#" },
     { title: "Google Business Intelligence Professional Certificate", logo: "images/logos/google.webp", link: "#" },
     { title: "Deep Learning Specialization - DeepLearning.AI", logo: "images/logos/dl.webp", link: "#" },
-    { title: "Machine Learning Specialization - Stanford University", logo: "images/logos/michigan.png", link: "#" },
+    { title: "Machine Learning Specialization - Stanford University", logo: "images/logos/su.webp", link: "#" },
     { title: "Applied Machine Learning in Python - University of Michigan", logo: "images/logos/michigan.png", link: "#" },
     { title: "AI/ML Engineer - Stage 1 & 2 - SLIIT", logo: "images/logos/sliit.jpeg", link: "#" },
     { title: "Machine Learning in Production - DeepLearning.AI", logo: "images/logos/dl.webp", link: "#" },
