@@ -102,6 +102,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setupActiveNavigation();
 
+  // Setup project filtering
+  setupProjectFilters();
+
   // Initialize New Libraries
   initTypewriter();
   initParticles();
@@ -118,29 +121,29 @@ document.addEventListener("DOMContentLoaded", () => {
 // Setup certifications
 function setupCertifications() {
   const certifications = [
-    "MLOps Specialization offered by Duke University",
-    "Google Data Analytics Professional Certificate",
-    "Google Business Intelligence Professional Certificate",
-    "Deep Learning Specialization - DeepLearning.AI",
-    "Machine Learning Specialization - Stanford University",
-    "Applied Machine Learning in Python - University of Michigan",
-    "AI/ML Engineer - Stage 1 & 2 - SLIIT",
-    "Machine Learning in Production - DeepLearning.AI",
-    "Machine Learning on Google Cloud Specialization",
-    "Google Advanced Data Analytics Professional Certificate",
-    "Microsoft Power BI Data Analyst Professional Certificate",
-    "Generative AI with Large Language Models - DeepLearning.AI",
-    "Mathematics for Machine Learning and Data Science Specialization - DeepLearning.AI",
-    "Introduction to Statistics - Stanford University",
-    "Introduction to Data Science in Python - University of Michigan",
-    "Google AI Essentials - Google",
-    "AWS Fundamentals Specialization - Amazon Web Services (AWS)",
-    "Introduction to Machine Learning on AWS",
-    "Azure Fundamentals - Simplilearn",
-    "Exploratory Data Analysis for Machine Learning - IBM",
-    "Databases and SQL for Data Science with Python - IBM",
-    "TensorFlow - Keras Bootcamp - OpenCV University",
-    "Introduction to Git and GitHub - Google",
+    { title: "MLOps Specialization offered by Duke University", logo: "images/logos/duke.png", link: "#" },
+    { title: "Google Data Analytics Professional Certificate", logo: "images/logos/google.webp", link: "#" },
+    { title: "Google Business Intelligence Professional Certificate", logo: "images/logos/google.webp", link: "#" },
+    { title: "Deep Learning Specialization - DeepLearning.AI", logo: "images/logos/dl.webp", link: "#" },
+    { title: "Machine Learning Specialization - Stanford University", logo: "images/logos/Stanford.png", link: "#" },
+    { title: "Applied Machine Learning in Python - University of Michigan", logo: "images/logos/michigan.png", link: "#" },
+    { title: "AI/ML Engineer - Stage 1 & 2 - SLIIT", logo: "images/logos/sliit.jpeg", link: "#" },
+    { title: "Machine Learning in Production - DeepLearning.AI", logo: "images/logos/dl.webp", link: "#" },
+    { title: "Machine Learning on Google Cloud Specialization", logo: "images/logos/google.webp", link: "#" },
+    { title: "Google Advanced Data Analytics Professional Certificate", logo: "images/logos/google.webp", link: "#" },
+    { title: "Microsoft Power BI Data Analyst Professional Certificate", logo: "images/logos/ms.webp", link: "#" },
+    { title: "Generative AI with Large Language Models - DeepLearning.AI", logo: "images/logos/dl.webp", link: "#" },
+    { title: "Mathematics for Machine Learning and Data Science Specialization - DeepLearning.AI", logo: "images/logos/dl.webp", link: "#" },
+    { title: "Introduction to Statistics - Stanford University", logo: "images/logos/Stanford.png", link: "#" },
+    { title: "Introduction to Data Science in Python - University of Michigan", logo: "images/logos/michigan.png", link: "#" },
+    { title: "Google AI Essentials - Google", logo: "images/logos/google.webp", link: "#" },
+    { title: "AWS Fundamentals Specialization - Amazon Web Services (AWS)", logo: "images/logos/aws.jpg", link: "#" },
+    { title: "Introduction to Machine Learning on AWS", logo: "images/logos/aws.jpg", link: "#" },
+    { title: "Azure Fundamentals - Simplilearn", logo: "images/logos/sl.webp", link: "#" },
+    { title: "Exploratory Data Analysis for Machine Learning - IBM", logo: "images/logos/ibm.webp", link: "#" },
+    { title: "Databases and SQL for Data Science with Python - IBM", logo: "images/logos/ibm.webp", link: "#" },
+    { title: "TensorFlow - Keras Bootcamp - OpenCV University", logo: "images/logos/opencv.webp", link: "#" },
+    { title: "Introduction to Git and GitHub - Google", logo: "images/logos/google.webp", link: "#" },
   ];
 
   const certScroll = document.getElementById("certScroll");
@@ -153,12 +156,18 @@ function setupCertifications() {
     // Create certification items
     certifications.forEach((cert) => {
       const certDiv = document.createElement("div");
-      certDiv.className = "cert-item";
+      certDiv.className = "cert-item mb-3 p-3 rounded bg-glass d-flex align-items-center justify-content-between";
+      
+      const logoHtml = cert.logo 
+        ? `<img src="${cert.logo}" alt="Logo" style="width: 45px; height: 45px; object-fit: contain;" class="me-3 bg-white rounded p-1">` 
+        : `<div class="me-3 d-flex align-items-center justify-content-center bg-white rounded" style="width: 45px; height: 45px;"><i class="fas fa-certificate text-primary fa-lg"></i></div>`;
+      
       certDiv.innerHTML = `
             <div class="d-flex align-items-center">
-                <i class="fas fa-certificate text-primary me-3"></i>
-                <p class="mb-0">${cert}</p>
+                ${logoHtml}
+                <p class="mb-0 fw-medium">${cert.title}</p>
             </div>
+            <a href="${cert.link}" class="btn btn-sm btn-outline-light rounded-pill ms-3 flex-shrink-0 d-none" target="_blank" rel="noopener noreferrer">Show credential</a>
         `;
       certScroll.appendChild(certDiv);
     });
@@ -428,6 +437,110 @@ function setupProjectReveal() {
       }, 1000);
     });
   }
+}
+
+// Setup project filtering functionality
+// Setup project filtering functionality
+// Setup project filtering functionality
+function setupProjectFilters() {
+  const filterBtns = document.querySelectorAll(".filter-btn");
+  const showMoreBtn = document.getElementById("showMoreBtn");
+  const wrapper = document.querySelector(".projects-wrapper");
+  const projectsContainer = document.getElementById("projectsContainer");
+  let isFilteredMode = false;
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const filterValue = btn.getAttribute("data-filter");
+
+      if (filterValue === "all") {
+        if (showMoreBtn) showMoreBtn.style.display = "inline-block";
+        
+        if (isFilteredMode && wrapper) {
+            const innerRow = wrapper.querySelector(".row");
+            if (innerRow && projectsContainer) {
+                const hiddenProjects = document.querySelectorAll(".project-item.hidden-project");
+                hiddenProjects.forEach(p => innerRow.appendChild(p));
+            }
+            wrapper.style.display = "block";
+            isFilteredMode = false;
+        }
+
+        const isExpanded = showMoreBtn && showMoreBtn.innerHTML.includes('Show Less');
+
+        const projectItems = document.querySelectorAll(".project-item");
+        projectItems.forEach(item => {
+          if (item._hideTimeout) clearTimeout(item._hideTimeout);
+          
+          item.style.display = "block";
+          
+          if (item.classList.contains("hidden-project")) {
+            // Restore proper opacity/transform state based on whether "Show More" is currently expanded
+            setTimeout(() => {
+                if (isExpanded) {
+                    item.style.opacity = "1";
+                    item.style.transform = "translateY(0) scale(1)";
+                } else {
+                    item.style.opacity = "0";
+                    item.style.transform = "translateY(20px)";
+                }
+            }, 20);
+          } else {
+            setTimeout(() => {
+              item.style.opacity = "1";
+              item.style.transform = "translateY(0) scale(1)";
+            }, 20);
+          }
+        });
+
+        if (wrapper) {
+            if (isExpanded) {
+                wrapper.style.height = "auto";
+                wrapper.style.overflow = "visible";
+            } else {
+                wrapper.style.height = "0px";
+                wrapper.style.overflow = "hidden";
+            }
+        }
+
+      } else {
+        if (showMoreBtn) showMoreBtn.style.display = "none";
+        
+        if (!isFilteredMode && wrapper) {
+            const innerRow = wrapper.querySelector(".row");
+            if (innerRow && projectsContainer) {
+                while(innerRow.firstChild) {
+                    projectsContainer.appendChild(innerRow.firstChild);
+                }
+            }
+            wrapper.style.display = "none";
+            isFilteredMode = true;
+        }
+
+        const projectItems = document.querySelectorAll(".project-item");
+        projectItems.forEach(item => {
+          if (item._hideTimeout) clearTimeout(item._hideTimeout);
+
+          if (item.getAttribute("data-category") === filterValue) {
+            item.style.display = "block";
+            setTimeout(() => {
+              item.style.opacity = "1";
+              item.style.transform = "translateY(0) scale(1)";
+            }, 20);
+          } else {
+            item.style.opacity = "0";
+            item.style.transform = "scale(0.8)";
+            item._hideTimeout = setTimeout(() => {
+              item.style.display = "none";
+            }, 400); 
+          }
+        });
+      }
+    });
+  });
 }
 
 // Removed redundant and unoptimized setupFloatingNav listener
