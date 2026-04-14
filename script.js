@@ -1,626 +1,1276 @@
-// Intersection Observer for animations
-const observerOptions = {
-  threshold: 0.2,
-  rootMargin: "0px 0px -50px 0px",
-};
+/* ===== ROOT VARIABLES ===== */
+:root {
+  --primary-color: #00f2fe;
+  --secondary-color: #4facfe;
+  --accent-color: #ff0844;
+  --bg-dark: #0B0F19;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --gradient-1: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+  --gradient-2: linear-gradient(135deg, #6366f1 0%, #a5b4fc 100%);
+  --glass-bg: rgba(17, 25, 40, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.125);
+}
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
+/* ===== GLOBAL STYLES ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-      if (entry.target.classList.contains("section-card")) {
-        // Animate skill progress bars
-        entry.target
-          .querySelectorAll(".skill-progress")
-          .forEach((bar, index) => {
-            setTimeout(() => {
-              const style = bar.getAttribute("style");
-              if (style && style.match(/width:\s*(\d+)%/)) {
-                bar.style.width = style.match(/width:\s*(\d+)%/)[1] + "%";
-              }
-            }, index * 200);
-          });
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-weight: 400;
+  font-family: "Product Sans", sans-serif;
+  overflow-x: hidden;
+}
 
-        // Animate education cards
-        entry.target
-          .querySelectorAll(".education-card")
-          .forEach((card, index) => {
-            setTimeout(() => {
-              card.classList.add("visible");
-            }, index * 300);
-          });
+/* ===== UTILITIES ===== */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
 
-        // Animate soft skill cards
-        entry.target
-          .querySelectorAll(".soft-skill-card")
-          .forEach((card, index) => {
-            setTimeout(() => {
-              card.classList.add("visible");
-            }, index * 200);
-          });
+/* ===== TYPOGRAPHY ===== */
+.gradient-text {
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "Product Sans", sans-serif;
+  font-weight: 700;
+  text-decoration: none !important;
+}
 
-        // Animate project cards
-        entry.target
-          .querySelectorAll(".project-card")
-          .forEach((card, index) => {
-            setTimeout(() => {
-              card.classList.add("visible");
-            }, index * 200);
-          });
-
-        // Animate achievement cards
-        entry.target
-          .querySelectorAll(".achievement-card")
-          .forEach((card, index) => {
-            setTimeout(() => {
-              card.classList.add("visible");
-            }, index * 200);
-          });
-      }
-    }
-  });
-}, observerOptions);
-
-// Initialize observer on DOM content loaded
-document.addEventListener("DOMContentLoaded", () => {
-  // Observe elements for animation
-  document
-    .querySelectorAll(
-      ".section-card, .project-card, .education-card, .soft-skill-card, .achievement-card"
-    )
-    .forEach((element) => {
-      observer.observe(element);
-    });
-
-  // Animate social buttons
-  const socialBtns = document.querySelectorAll(".social-btn");
-  socialBtns.forEach((btn, index) => {
-    setTimeout(() => {
-      btn.classList.add("visible");
-    }, 1500 + index * 200);
-  });
-
-  // Animate profile image
-  setTimeout(() => {
-    const profileImg = document.querySelector(".profile-img");
-    if (profileImg) {
-      profileImg.classList.add("visible");
-    }
-  }, 800);
-
-  // Certification data
-  setupCertifications();
-
-  // Setup smooth scrolling
-  setupSmoothScroll();
-
-  // Setup project reveal functionality
-  setupProjectReveal();
-
-  setupSkillTagAnimation();
-
-  setupActiveNavigation();
-
-  // Setup project filtering
-  setupProjectFilters();
-
-  // Initialize New Libraries
-  initTypewriter();
-  initParticles();
+.hero-name {
+  font-family: "Product Sans", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  text-transform: none;
   
-  if (typeof AOS !== 'undefined') {
-    AOS.init({
-      duration: 800,
-      once: true,
-      offset: 100
-    });
+}
+
+.hero-title {
+  font-family: "Product Sans", sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+}
+
+/* Force remove underline from name */
+.gradient-text,
+h1.gradient-text,
+.hero-name {
+  text-decoration: none !important;
+}
+
+#home h1.gradient-text {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+
+/* Prevent name from being clickable */
+h1.gradient-text {
+  pointer-events: none;
+  cursor: default;
+}
+
+/* But allow other elements to be clickable */
+h1.gradient-text * {
+  pointer-events: auto;
+}
+
+
+.lead.text-muted {
+  font-weight: 400;
+  color: var(--text-muted) !important;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+.card-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* ===== UTILITY CLASSES ===== */
+.gradient-bg {
+  background: var(--gradient-1);
+}
+
+.btn-glass {
+  background-image: none !important;
+  background-color: var(--glass-bg) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--primary-color) !important;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.1), inset 0 0 5px rgba(0, 242, 254, 0.1) !important;
+  color: var(--text-main) !important;
+  transition: all 0.3s ease;
+}
+
+.btn-glass:hover {
+  background-color: rgba(0, 242, 254, 0.1) !important;
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.3), inset 0 0 10px rgba(0, 242, 254, 0.2) !important;
+  transform: translateY(-2px);
+  color: #fff !important;
+}
+
+/* ===== SECTION CARDS ===== */
+.section-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(30px);
+  overflow: hidden;
+  max-width: 1111px;
+  margin: 0 auto 2rem auto;
+  padding: 2.5rem;
+}
+
+.section-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(79, 70, 229, 0.15);
+}
+
+/* ===== PROFILE IMAGE ===== */
+.profile-img {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(0, 242, 254, 0.5), 0 0 60px rgba(79, 172, 254, 0.3);
+  animation: pulseGlow 3s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.4), 0 0 40px rgba(79, 172, 254, 0.2);
   }
-});
-
-// Setup certifications
-function setupCertifications() {
-  const certifications = [
-    { title: "MLOps Specialization offered by Duke University", logo: "images/logos/duke.png", link: "#" },
-    { title: "Google Data Analytics Professional Certificate", logo: "images/logos/google.webp", link: "#" },
-    { title: "Google Business Intelligence Professional Certificate", logo: "images/logos/google.webp", link: "#" },
-    { title: "Deep Learning Specialization - DeepLearning.AI", logo: "images/logos/dl.webp", link: "#" },
-    { title: "Machine Learning Specialization - Stanford University", logo: "images/logos/Stanford.png", link: "#" },
-    { title: "Applied Machine Learning in Python - University of Michigan", logo: "images/logos/michigan.png", link: "#" },
-    { title: "AI/ML Engineer - Stage 1 & 2 - SLIIT", logo: "images/logos/sliit.jpeg", link: "#" },
-    { title: "Machine Learning in Production - DeepLearning.AI", logo: "images/logos/dl.webp", link: "#" },
-    { title: "Machine Learning on Google Cloud Specialization", logo: "images/logos/google.webp", link: "#" },
-    { title: "Google Advanced Data Analytics Professional Certificate", logo: "images/logos/google.webp", link: "#" },
-    { title: "Microsoft Power BI Data Analyst Professional Certificate", logo: "images/logos/ms.webp", link: "#" },
-    { title: "Generative AI with Large Language Models - DeepLearning.AI", logo: "images/logos/dl.webp", link: "#" },
-    { title: "Mathematics for Machine Learning and Data Science Specialization - DeepLearning.AI", logo: "images/logos/dl.webp", link: "#" },
-    { title: "Introduction to Statistics - Stanford University", logo: "images/logos/Stanford.png", link: "#" },
-    { title: "Introduction to Data Science in Python - University of Michigan", logo: "images/logos/michigan.png", link: "#" },
-    { title: "Google AI Essentials - Google", logo: "images/logos/google.webp", link: "#" },
-    { title: "AWS Fundamentals Specialization - Amazon Web Services (AWS)", logo: "images/logos/aws.jpg", link: "#" },
-    { title: "Introduction to Machine Learning on AWS", logo: "images/logos/aws.jpg", link: "#" },
-    { title: "Azure Fundamentals - Simplilearn", logo: "images/logos/sl.webp", link: "#" },
-    { title: "Exploratory Data Analysis for Machine Learning - IBM", logo: "images/logos/ibm.webp", link: "#" },
-    { title: "Databases and SQL for Data Science with Python - IBM", logo: "images/logos/ibm.webp", link: "#" },
-    { title: "TensorFlow - Keras Bootcamp - OpenCV University", logo: "images/logos/opencv.webp", link: "#" },
-    { title: "Introduction to Git and GitHub - Google", logo: "images/logos/google.webp", link: "#" },
-  ];
-
-  const certScroll = document.getElementById("certScroll");
-  const showMoreCertsBtn = document.getElementById("showMoreCerts");
-
-  if (certScroll && showMoreCertsBtn) {
-    // Clear any existing content
-    certScroll.innerHTML = "";
-
-    // Create certification items
-    certifications.forEach((cert) => {
-      const certDiv = document.createElement("div");
-      certDiv.className = "cert-item mb-3 p-3 rounded bg-glass d-flex align-items-center justify-content-between";
-      
-      const logoHtml = cert.logo 
-        ? `<img src="${cert.logo}" alt="Logo" style="width: 45px; height: 45px; object-fit: contain;" class="me-3 bg-white rounded p-1">` 
-        : `<div class="me-3 d-flex align-items-center justify-content-center bg-white rounded" style="width: 45px; height: 45px;"><i class="fas fa-certificate text-primary fa-lg"></i></div>`;
-      
-      certDiv.innerHTML = `
-            <div class="d-flex align-items-center">
-                ${logoHtml}
-                <p class="mb-0 fw-medium">${cert.title}</p>
-            </div>
-            <a href="${cert.link}" class="btn btn-sm btn-outline-light rounded-pill ms-3 flex-shrink-0 d-none" target="_blank" rel="noopener noreferrer">Show credential</a>
-        `;
-      certScroll.appendChild(certDiv);
-    });
-
-    let isExpanded = false;
-    const initialVisibleCount = 3;
-    const certItemsElements = document.querySelectorAll(".cert-item");
-    const certItems = Array.from(certItemsElements);
-
-    // Initial state: first 3 are visible
-    certItems.forEach((cert, index) => {
-      if (index < initialVisibleCount) {
-        setTimeout(() => {
-          cert.classList.add("visible");
-          cert.style.opacity = "1";
-          cert.style.transform = "translateY(0)";
-        }, index * 200);
-      }
-    });
-
-    const hiddenCerts = certItems.slice(initialVisibleCount);
-    
-    // Create animatable wrapper for hidden certs
-    const wrapper = document.createElement("div");
-    wrapper.className = "certs-wrapper";
-    wrapper.style.overflow = "hidden";
-    wrapper.style.transition = "height 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
-    wrapper.style.height = "0px";
-
-    // Move hidden certs into wrapper
-    hiddenCerts.forEach(cert => {
-      cert.style.display = "block";
-      cert.style.opacity = "0";
-      cert.style.transform = "translateY(10px)";
-      cert.style.transition = "opacity 0.3s ease, transform 0.3s ease";
-      wrapper.appendChild(cert);
-    });
-
-    certScroll.appendChild(wrapper);
-
-    // Setup show more/less functionality
-    showMoreCertsBtn.addEventListener("click", () => {
-      isExpanded = !isExpanded;
-      certScroll.classList.toggle("expanded");
-
-      if (isExpanded) {
-        // Expand
-        wrapper.style.height = wrapper.scrollHeight + "px";
-
-        // Stagger fade in
-        hiddenCerts.forEach((item, index) => {
-          setTimeout(() => {
-            item.style.opacity = "1";
-            item.style.transform = "translateY(0)";
-          }, 50 + index * 30);
-        });
-
-        setTimeout(() => {
-          if (isExpanded) wrapper.style.height = "auto";
-        }, 400);
-
-      } else {
-        // Contract
-        wrapper.style.height = wrapper.scrollHeight + "px";
-        
-        // Scroll back up gently
-        const certSection = document.getElementById("certifications");
-        if (certSection) {
-          certSection.scrollIntoView({ behavior: "smooth" });
-        }
-
-        // Force reflow
-        wrapper.offsetHeight;
-
-        // Fade all out
-        hiddenCerts.forEach((item) => {
-          item.style.opacity = "0";
-          item.style.transform = "translateY(10px)";
-        });
-
-        // Shrink height
-        wrapper.style.height = "0px";
-      }
-
-      showMoreCertsBtn.innerHTML = isExpanded
-        ? 'Show Less <i class="fas fa-chevron-up ms-2"></i>'
-        : 'Show More <i class="fas fa-chevron-down ms-2"></i>';
-    });
+  100% {
+    box-shadow: 0 0 40px rgba(0, 242, 254, 0.8), 0 0 80px rgba(79, 172, 254, 0.5);
   }
 }
 
-// Setup smooth scrolling
-function setupSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute("href"));
-      if (target) {
-        target.scrollIntoView({
-          behavior: "smooth",
-        });
-      }
-    });
-  });
+.profile-img.visible {
+  opacity: 1;
+  transform: scale(1);
 }
 
-// Setup active navigation highlighting on scroll (Optimized for mobile)
-function setupActiveNavigation() {
-  const navLinks = document.querySelectorAll(".floating-nav a");
-  const sections = Array.from(document.querySelectorAll("section[id]"));
+/* ===== PARTICLES ===== */
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+#home .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== SOCIAL BUTTONS ===== */
+.social-btn {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-btn.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.social-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
+}
+
+/* ===== FLOATING NAVIGATION ===== */
+.floating-nav {
+  position: fixed;
+  top: 50%;
+  right: 2rem;
+  transform: translateY(-50%);
+  z-index: 1000;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  padding: 1rem;
+  border-radius: 30px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards 1s;
+}
+
+.floating-nav a {
+  color: var(--text-main);
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.floating-nav a:hover {
+  color: var(--primary-color);
+  background-color: rgba(0, 242, 254, 0.1);
+  transform: scale(1.1);
+}
+
+/* Custom Tooltip on Hover */
+.floating-nav a::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  right: calc(100% + 15px);
+  top: 50%;
+  transform: translateY(-50%) translateX(10px);
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--primary-color);
+  color: var(--text-main);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.15);
+  pointer-events: none;
+}
+
+.floating-nav a:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Active state with animation */
+.floating-nav a.active {
+  color: var(--primary-color);
+}
+
+.floating-nav a.active::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 242, 254, 0.15);
+  border-radius: 50%;
+  z-index: -1;
+  animation: activeNavPulse 2s infinite;
+}
+
+/* Pulse animation for active nav item */
+@keyframes activeNavPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.7;
+  }
+}
+
+/* Mobile navigation active states */
+@media (max-width: 768px) {
+  .nav-icon.active {
+    background: var(--gradient-1);
+    color: white;
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+  }
   
-  let sectionData = [];
+  .nav-icon.active::before {
+    display: none; /* Remove pulse on mobile */
+  }
+}
+
+/* ===== SKILLS SECTION ===== */
+.skill-category {
+  margin-bottom: 3rem;
+}
+
+.skill-category-title {
+  font-weight: 600;
+  color: var(--dark-color);
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e2e8f0;
+  position: relative;
+}
+
+.skill-category-title::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: var(--gradient-1);
+}
+
+.skill-category-title i {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+}
+
+.skill-item {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid var(--glass-border);
+  border-left: 4px solid transparent;
+}
+
+.skill-item:hover {
+  background: rgba(17, 25, 40, 0.9);
+  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.2);
+  border-left-color: var(--primary-color);
+  transform: translateX(5px);
+}
+
+.skill-item:hover .skill-logo {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.skill-name {
+  font-weight: 600;
+  color: var(--text-main);
+  font-size: 1rem;
+}
+
+.skill-percentage {
+  font-weight: 600;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+}
+
+.skill-bar {
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  position: relative;
+}
+
+.skill-progress {
+  height: 100%;
+  background: var(--gradient-1);
+  border-radius: 10px;
+  width: 0;
+  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.5), 0 0 20px rgba(79, 172, 254, 0.3);
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.skill-tag {
+  background: var(--glass-bg);
+  backdrop-filter: blur(4px);
+  color: var(--text-main);
+  padding: 0.8rem 1.2rem;
+  border-radius: 25px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+  cursor: default;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.skill-tag:hover {
+  background: rgba(0, 242, 254, 0.1);
+  color: #fff;
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+}
+
+.skill-tag:hover .skill-tag-logo {
+  transform: scale(1.1);
+  filter: brightness(0) invert(1);
+}
+
+.skill-tag:hover .skill-tag-icon {
+  color: white;
+  transform: scale(1.1);
+}
+
+.skill-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: all 0.3s ease;
+}
+
+.skill-logo:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.skill-tag-logo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.skill-tag-icon {
+  font-size: 16px;
+  margin-right: 8px;
+  color: var(--primary-color);
+  vertical-align: middle;
+}
+
+/* ===== PROJECTS SECTION ===== */
+.project-filters {
+  margin-bottom: 3rem;
+}
+
+.filter-btn {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--glass-border) !important;
+}
+
+.filter-btn.active {
+  background: var(--gradient-1) !important;
+  color: white !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4) !important;
+  transform: translateY(-2px);
+}
+
+.project-item {
+  transition: all 0.4s ease;
+}
+.project-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  overflow: hidden;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(20px);
+  border: 1px solid var(--glass-border);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(79, 70, 229, 0.15);
+  border-color: var(--primary-color);
+}
+
+.project-card h3 {
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--text-main);
+}
+
+.project-card p {
+  font-weight: 500;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.project-header {
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 1rem;
+}
+
+.project-content {
+  flex-grow: 1;
+}
+
+.project-description {
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.project-footer {
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+  margin-top: 1rem;
+}
+
+.project-footer .btn {
+  background: var(--gradient-1);
+  border: none;
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border-radius: 25px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.project-footer .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+  color: white;
+}
+
+.tech-stack-title,
+.features-title {
+  font-weight: 600;
+  color: var(--dark-color);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tech-logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech-tag {
+  background: var(--glass-bg);
+  backdrop-filter: blur(4px);
+  color: var(--text-main);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.8rem;
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+  cursor: default;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.tech-tag:hover {
+  background: rgba(0, 242, 254, 0.1);
+  color: #fff;
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+}
+
+.tech-logo {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.tech-icon {
+  font-size: 14px;
+  margin-right: 6px;
+  color: var(--primary-color);
+  vertical-align: middle;
+}
+
+.tech-tag:hover .tech-logo {
+  filter: brightness(0) invert(1);
+}
+
+.tech-tag:hover .tech-icon {
+  color: white;
+}
+
+.hidden-project {
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hidden-project.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== EDUCATION SECTION ===== */
+.education-card {
+  border-left: 4px solid var(--primary-color);
+  padding-left: 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.education-card.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.education-card::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  transform: scale(0);
+  transition: transform 0.3s ease;
+}
+
+.education-card.visible::before {
+  transform: scale(1);
+}
+
+.education-card h4 {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--text-main);
+}
+
+.education-card p {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* ===== SOFT SKILLS SECTION ===== */
+.soft-skill-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  padding: 1.5rem;
+  border-radius: 15px;
+  text-align: center;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.soft-skill-card.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.soft-skill-card:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 242, 254, 0.2);
+  border-color: var(--primary-color);
+}
+
+/* ===== ACHIEVEMENT SECTION ===== */
+.achievement-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(20px);
+  border: 1px solid var(--glass-border);
+}
+
+.achievement-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.achievement-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.1);
+}
+
+.achievement-card .carousel-inner {
+  height: 300px;  /* Adjust this value if you want a taller/shorter area */
+  background-color: rgba(0,0,0,0.5); /* Dark gray background for the empty space */
+  border-bottom: 1px solid var(--glass-border);
+}
+.achievement-card .carousel-item {
+  height: 100%;
+  width: 100%;
+}
+.achievement-card .achievement-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+}
+.achievement-card .carousel-control-prev-icon,
+.achievement-card .carousel-control-next-icon {
+  background-color: rgba(79, 70, 229, 0.5); /* Primary color with transparency */
+  border-radius: 50%;
+  padding: 1.5rem;
+  background-size: 50% 50%;
+}
+
+/* ===== CERTIFICATIONS SECTION ===== */
+.certification-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 15px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.certification-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 242, 254, 0.2);
+  border-color: var(--primary-color);
+}
+
+.certification-scroll {
+  max-height: 400px;
+  overflow: hidden;
+  transition: max-height 0.6s ease-in-out;
+  position: relative;
+}
+
+.certification-scroll.expanded {
+  max-height: 5000px;
+}
+
+.certification-scroll:not(.expanded)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(transparent, white);
+  pointer-events: none;
+}
+
+.cert-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-left: 4px solid var(--primary-color);
+}
+
+.cert-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cert-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 242, 254, 0.2);
+  background: rgba(17, 25, 40, 0.9);
+}
+
+.cert-item p {
+  font-weight: 500;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+.cert-item i {
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+.certification-badge {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge {
+  font-size: 0.85rem;
+  padding: 0.5em 1em;
+  border-radius: 20px;
+}
+
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.project-card {
+  animation-delay: var(--animation-delay, 0s);
+}
+
+.project-card:nth-child(1) {
+  --animation-delay: 0.1s;
+}
+
+.project-card:nth-child(2) {
+  --animation-delay: 0.2s;
+}
+
+.project-card:nth-child(3) {
+  --animation-delay: 0.3s;
+}
+
+.project-card:nth-child(4) {
+  --animation-delay: 0.4s;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Tablet and Mobile Navigation */
+@media (max-width: 768px) {
+  .floating-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.8rem 0.5rem;
+    border-radius: 15px 15px 0 0;
+    background: white;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+    transform: none;
+    top: auto;
+  }
+
+  .floating-nav .d-flex {
+    width: 100%;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 0 !important;
+    padding: 0 1rem;
+  }
+
+  .nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #f8fafc;
+    color: var(--dark-color);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: 2px solid #e2e8f0;
+  }
+
+  .nav-icon:hover,
+  .nav-icon.active {
+    background: var(--gradient-1);
+    color: white;
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+  }
+
+  .nav-icon i {
+    font-size: 1.2rem;
+  }
+
+  .section-card {
+    max-width: 100%;
+    margin: 0 1rem 2rem 1rem;
+    padding: 1.5rem !important;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+  }
+
+  .profile-img {
+    width: 120px;
+    height: 120px;
+  }
+
+  #home h1.display-3 {
+    font-size: calc(1.5rem + 1.5vw);
+  }
+
+  .display-4 {
+    font-size: calc(1.4rem + 1.2vw);
+  }
+
+  .skill-bar {
+    height: 20px;
+  }
+
+  .project-card,
+  .soft-skill-card,
+  .achievement-card {
+    padding: 1rem;
+  }
+
+  .social-btn {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .skill-category-title {
+    font-size: 1.2rem;
+  }
+
+  .skill-item {
+    padding: 1rem;
+  }
+
+  .skill-tag {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .skill-logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .skill-tag-logo {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+  }
+
+  .skill-tag-icon {
+    font-size: 14px;
+    margin-right: 6px;
+  }
+
+  .project-card {
+    padding: 1.5rem;
+  }
+
+  .tech-tag {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .tech-logo {
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+  }
+
+  .tech-icon {
+    font-size: 12px;
+    margin-right: 4px;
+  }
+
+  .project-description {
+    font-size: 0.9rem;
+  }
+
+  .certification-scroll {
+    max-height: 350px;
+  }
+
+  .certification-scroll.expanded {
+    max-height: 1200px;
+  }
+
+  .cert-item {
+    padding: 15px;
+    margin-bottom: 10px;
+  }
+
+  .cert-item i {
+    font-size: 1rem;
+  }
+
+  #showMoreCerts {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 576px) {
+  .nav-icon {
+    font-size: 1.2rem;
+    padding: 6px;
+  }
+
+  .section-card {
+    margin: 0 0.5rem 1.5rem 0.5rem;
+    padding: 1rem !important;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  #home .container .section-card {
+    padding: 1rem !important;
+  }
+
+  .social-btn {
+    padding: 0.4rem 0.8rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  #home .d-flex.justify-content-center {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mb-4 {
+    margin-bottom: 1rem !important;
+  }
+
+  .project-card .d-flex {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .project-card .gradient-bg {
+    margin-bottom: 1rem;
+    margin-right: 0 !important;
+  }
+
+  .project-card .btn {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .project-card {
+    padding: 1rem;
+  }
+
+  .tech-logos {
+    gap: 0.3rem;
+  }
+
+  .tech-tag {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .tech-logo {
+    width: 12px;
+    height: 12px;
+    margin-right: 3px;
+  }
+
+  .tech-icon {
+    font-size: 10px;
+    margin-right: 3px;
+  }
+
+  .skill-tags {
+    gap: 0.5rem;
+  }
+
+  .skill-logo {
+    width: 28px;
+    height: 28px;
+  }
+
+  .skill-tag-logo {
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+  }
+
+  .skill-tag-icon {
+    font-size: 12px;
+    margin-right: 4px;
+  }
+
+  .skill-tag {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .cert-item .d-flex {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cert-item i {
+    margin-bottom: 8px;
+    margin-right: 0 !important;
+  }
+}
+
+/* Large Tablets */
+@media (min-width: 769px) and (max-width: 992px) {
+  .floating-nav {
+    right: 1rem;
+  }
+
+  .section-card {
+    padding: 2rem !important;
+  }
+}
+
+/* ===== NEW MOBILE RESPONSIVENESS REFINEMENTS ===== */
+@media (max-width: 768px) {
+  /* Hide the right-side floating nav on mobile and attach to bottom */
+  .floating-nav {
+    top: auto;
+    bottom: 1rem;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    padding: 0.5rem 0.5rem;
+    background: rgba(11, 15, 25, 0.95) !important;
+    border: 1px solid rgba(0, 242, 254, 0.3) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+    width: 95%;
+    max-width: 430px;
+    border-radius: 20px;
+  }
+
+  .floating-nav .d-flex {
+    flex-direction: row !important;
+    justify-content: space-evenly !important;
+    gap: 0.2rem !important;
+  }
+
+  /* Disable tooltips on mobile since there is no hover */
+  .floating-nav a::after {
+    display: none !important;
+  }
+
+  /* Adjust Hero Section */
+  .display-3 {
+    font-size: 2.5rem;
+  }
+
+  .hero-title {
+    font-size: 1rem;
+  }
+
+  /* Adjust Section Cards */
+  .section-card {
+    padding: 1.5rem !important;
+    margin-bottom: 5rem; /* Space for bottom nav */
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  /* Button stacking */
+  .d-flex.justify-content-center.gap-3 {
+    flex-wrap: wrap;
+  }
+
+  .btn-lg {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .display-3 {
+    font-size: 2rem;
+  }
   
-  function calculatePositions() {
-    sectionData = sections.map(section => ({
-      id: section.getAttribute("id"),
-      top: section.offsetTop - 150,
-      bottom: section.offsetTop + section.offsetHeight - 150
-    }));
+  .tech-logos {
+    gap: 0.5rem;
   }
-
-  function updateActiveNav() {
-    const scrollY = window.pageYOffset;
-    let currentId = "";
-
-    for (let i = 0; i < sectionData.length; i++) {
-        if (scrollY >= sectionData[i].top && scrollY < sectionData[i].bottom) {
-            currentId = sectionData[i].id;
-            break;
-        }
-    }
-
-    // Only update DOM if changed
-    navLinks.forEach((link) => {
-      const href = link.getAttribute("href");
-      if (href === `#${currentId}`) {
-          if(!link.classList.contains("active")) link.classList.add("active");
-      } else {
-          if(link.classList.contains("active")) link.classList.remove("active");
-      }
-    });
-  }
-
-  // Initial calculation
-  // Use setTimeout to ensure DOM is fully painted and sized
-  setTimeout(() => {
-      calculatePositions();
-      updateActiveNav();
-  }, 100);
-
-  // Listen for scroll events with requestAnimationFrame and passive flag
-  let ticking = false;
-  window.addEventListener("scroll", () => {
-      if (!ticking) {
-          window.requestAnimationFrame(() => {
-              updateActiveNav();
-              ticking = false;
-          });
-          ticking = true;
-      }
-  }, { passive: true });
   
-  // Recalculate on resize
-  window.addEventListener("resize", () => {
-      window.requestAnimationFrame(() => {
-          calculatePositions();
-          updateActiveNav();
-      });
-  }, { passive: true });
-}
-
-// Setup project reveal functionality
-function setupProjectReveal() {
-  const showMoreBtn = document.getElementById("showMoreBtn");
-  const hiddenProjectsElements = document.querySelectorAll(".hidden-project");
-  let projectsVisible = false;
-
-  if (showMoreBtn && hiddenProjectsElements.length > 0) {
-    // Convert to array for manipulation
-    const hiddenProjects = Array.from(hiddenProjectsElements);
-    const originalRow = hiddenProjects[0].closest(".row");
-
-    // Create animatable wrapper
-    const wrapper = document.createElement("div");
-    wrapper.className = "projects-wrapper";
-    wrapper.style.overflow = "hidden";
-    wrapper.style.transition = "height 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
-    wrapper.style.height = "0px";
-    wrapper.style.padding = "0 4px"; // Prevent card border clipping at edges
-
-    // Create an inner row to maintain Bootstrap grid behavior
-    const innerRow = document.createElement("div");
-    innerRow.className = "row g-4 justify-content-center mt-0";
-
-    // Move hidden projects to inner row
-    hiddenProjects.forEach((project) => {
-      // Initialize state
-      project.style.display = "block";  // Block layout is required for scrollHeight calculation
-      project.style.opacity = "0";
-      project.style.transform = "translateY(20px)";
-      project.style.transition = "opacity 0.4s ease, transform 0.4s ease";
-      innerRow.appendChild(project);
-    });
-
-    wrapper.appendChild(innerRow);
-    // Insert wrapper into the DOM directly after the primary row
-    originalRow.parentNode.insertBefore(wrapper, originalRow.nextSibling);
-
-    showMoreBtn.addEventListener("click", () => {
-      projectsVisible = !projectsVisible;
-
-      if (projectsVisible) {
-        // Expand phase:
-        const targetHeight = innerRow.scrollHeight;
-        wrapper.style.height = targetHeight + "px";
-
-        // Stagger fade in
-        hiddenProjects.forEach((project, index) => {
-          setTimeout(() => {
-            project.style.opacity = "1";
-            project.style.transform = "translateY(0)";
-          }, 50 + index * 40); // Fast, smooth stagger
-        });
-
-        // Set to auto after transition so resizing doesn't crop, and switch overflow
-        // to visible so card box-shadows/borders are not clipped
-        setTimeout(() => {
-          if (projectsVisible) {
-            wrapper.style.height = "auto";
-            wrapper.style.overflow = "visible";
-          }
-        }, 500);
-
-      } else {
-        // Collapse phase:
-        // Switch overflow back to hidden first so animation clips correctly
-        wrapper.style.overflow = "hidden";
-        // Set fixed height first from auto to trigger CSS transition
-        wrapper.style.height = innerRow.scrollHeight + "px";
-
-        // Optionally smooth scroll to the top of projects section so you don't lose context
-        const projectsSection = document.getElementById("projects");
-        if (projectsSection) {
-          projectsSection.scrollIntoView({ behavior: "smooth" });
-        }
-
-        // Force reflow
-        wrapper.offsetHeight; 
-
-        // Fade all out simultaneously 
-        hiddenProjects.forEach((project) => {
-          project.style.opacity = "0";
-          project.style.transform = "translateY(20px)";
-        });
-
-        // Collapse wrapper smoothly
-        wrapper.style.height = "0px";
-      }
-
-      showMoreBtn.innerHTML = projectsVisible
-        ? 'Show Less <i class="fas fa-chevron-up ms-2"></i>'
-        : 'Show More Projects <i class="fas fa-chevron-down ms-2"></i>';
-
-      showMoreBtn.classList.add("animate__animated", "animate__pulse");
-      setTimeout(() => {
-        showMoreBtn.classList.remove("animate__animated", "animate__pulse");
-      }, 1000);
-    });
+  .skill-name {
+    font-size: 0.9rem;
   }
 }
 
-// Setup project filtering functionality
-// Setup project filtering functionality
-// Setup project filtering functionality
-function setupProjectFilters() {
-  const filterBtns = document.querySelectorAll(".filter-btn");
-  const showMoreBtn = document.getElementById("showMoreBtn");
-  const wrapper = document.querySelector(".projects-wrapper");
-  const projectsContainer = document.getElementById("projectsContainer");
-  let isFilteredMode = false;
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      filterBtns.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      const filterValue = btn.getAttribute("data-filter");
-
-      if (filterValue === "all") {
-        if (showMoreBtn) showMoreBtn.style.display = "inline-block";
-        
-        if (isFilteredMode && wrapper) {
-            const innerRow = wrapper.querySelector(".row");
-            if (innerRow && projectsContainer) {
-                const hiddenProjects = document.querySelectorAll(".project-item.hidden-project");
-                hiddenProjects.forEach(p => innerRow.appendChild(p));
-            }
-            wrapper.style.display = "block";
-            isFilteredMode = false;
-        }
-
-        const isExpanded = showMoreBtn && showMoreBtn.innerHTML.includes('Show Less');
-
-        const projectItems = document.querySelectorAll(".project-item");
-        projectItems.forEach(item => {
-          if (item._hideTimeout) clearTimeout(item._hideTimeout);
-          
-          item.style.display = "block";
-          
-          if (item.classList.contains("hidden-project")) {
-            // Restore proper opacity/transform state based on whether "Show More" is currently expanded
-            setTimeout(() => {
-                if (isExpanded) {
-                    item.style.opacity = "1";
-                    item.style.transform = "translateY(0) scale(1)";
-                } else {
-                    item.style.opacity = "0";
-                    item.style.transform = "translateY(20px)";
-                }
-            }, 20);
-          } else {
-            setTimeout(() => {
-              item.style.opacity = "1";
-              item.style.transform = "translateY(0) scale(1)";
-            }, 20);
-          }
-        });
-
-        if (wrapper) {
-            if (isExpanded) {
-                wrapper.style.height = "auto";
-                wrapper.style.overflow = "visible";
-            } else {
-                wrapper.style.height = "0px";
-                wrapper.style.overflow = "hidden";
-            }
-        }
-
-      } else {
-        if (showMoreBtn) showMoreBtn.style.display = "none";
-        
-        if (!isFilteredMode && wrapper) {
-            const innerRow = wrapper.querySelector(".row");
-            if (innerRow && projectsContainer) {
-                while(innerRow.firstChild) {
-                    projectsContainer.appendChild(innerRow.firstChild);
-                }
-            }
-            wrapper.style.display = "none";
-            isFilteredMode = true;
-        }
-
-        const projectItems = document.querySelectorAll(".project-item");
-        projectItems.forEach(item => {
-          if (item._hideTimeout) clearTimeout(item._hideTimeout);
-
-          if (item.getAttribute("data-category") === filterValue) {
-            item.style.display = "block";
-            setTimeout(() => {
-              item.style.opacity = "1";
-              item.style.transform = "translateY(0) scale(1)";
-            }, 20);
-          } else {
-            item.style.opacity = "0";
-            item.style.transform = "scale(0.8)";
-            item._hideTimeout = setTimeout(() => {
-              item.style.display = "none";
-            }, 400); 
-          }
-        });
-      }
-    });
-  });
+/* ===== PROJECT CARD BUTTON ALIGNMENT ===== */
+.project-card.d-flex {
+  height: 100%;
 }
 
-// Removed redundant and unoptimized setupFloatingNav listener
-
-function setupSkillTagAnimation() {
-  const skillTags = document.querySelectorAll(".skill-tag");
-
-  skillTags.forEach((tag, index) => {
-    setTimeout(() => {
-      tag.style.opacity = "0";
-      tag.style.transform = "translateY(20px)";
-      tag.style.transition = "all 0.5s ease";
-
-      setTimeout(() => {
-        tag.style.opacity = "1";
-        tag.style.transform = "translateY(0)";
-      }, index * 100);
-    }, 500);
-  });
+.project-card .btn,
+.project-card .btn-glass {
+  margin-top: auto !important;
+  align-self: flex-start;
 }
-
-// ===== NEW LIBRARY INITIALIZATIONS =====
-
-function initTypewriter() {
-  const typewriterElement = document.getElementById('typewriter-text');
-  if (typewriterElement && typeof Typewriter !== 'undefined') {
-    new Typewriter(typewriterElement, {
-      strings: ['Data Scientist', 'AI/ML Engineer', 'Problem Solver'],
-      autoStart: true,
-      loop: true,
-      delay: 75,
-      deleteSpeed: 50
-    });
-  }
-}
-
-function initParticles() {
-  if (document.getElementById('particles-js') && typeof particlesJS !== 'undefined') {
-    const isMobile = window.innerWidth <= 768;
-    const particleCount = isMobile ? 30 : 80;
-    
-    particlesJS('particles-js', {
-      "particles": {
-        "number": { "value": particleCount, "density": { "enable": true, "value_area": 800 } },
-        "color": { "value": "#00f2fe" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.5, "random": false },
-        "size": { "value": 3, "random": true },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": "#4facfe",
-          "opacity": 0.4,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 2,
-          "direction": "none",
-          "random": false,
-          "straight": false,
-          "out_mode": "out",
-          "bounce": false
-        }
-      },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": { "enable": true, "mode": "grab" },
-          "onclick": { "enable": true, "mode": "push" },
-          "resize": true
-        },
-        "modes": {
-          "grab": { "distance": 140, "line_linked": { "opacity": 1 } },
-          "push": { "particles_nb": 4 }
-        }
-      },
-      "retina_detect": true
-    });
-  }
-}
-
-
