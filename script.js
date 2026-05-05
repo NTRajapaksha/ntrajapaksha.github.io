@@ -121,6 +121,12 @@ document.addEventListener("DOMContentLoaded", () => {
 // Setup certifications
 function setupCertifications() {
   const certifications = [
+    { 
+      title: "Microsoft Certified: Azure Data Scientist Associate certification", 
+      logo: "images/logos/ms.webp", 
+      link: "#", 
+      description: "Demonstrates expertise in applying data science and machine learning to implement and run machine learning workloads on Azure."
+    },
     { title: "MLOps Specialization offered by Duke University", logo: "images/logos/duke.png", link: "#" },
     { title: "Google Data Analytics Professional Certificate", logo: "images/logos/google.webp", link: "#" },
     { title: "Google Business Intelligence Professional Certificate", logo: "images/logos/google.webp", link: "#" },
@@ -165,9 +171,15 @@ function setupCertifications() {
       certDiv.innerHTML = `
             <div class="d-flex align-items-center">
                 ${logoHtml}
-                <p class="mb-0 fw-medium">${cert.title}</p>
+                <div>
+                  <p class="mb-0 fw-medium">${cert.title}</p>
+                  ${cert.description ? `<small class="text-white-50 d-block mt-1" style="font-size: 0.85rem; line-height: 1.4;">${cert.description}</small>` : ''}
+                </div>
             </div>
-            <a href="${cert.link}" class="btn btn-sm btn-outline-light rounded-pill ms-3 flex-shrink-0 d-none" target="_blank" rel="noopener noreferrer">Show credential</a>
+            <div class="d-flex gap-2 ms-3 flex-shrink-0 flex-wrap justify-content-end mt-2 mt-sm-0">
+                ${cert.pdf ? `<a href="${cert.pdf}" class="btn btn-sm btn-outline-info rounded-pill" target="_blank" rel="noopener noreferrer">View Certificate</a>` : ''}
+                <a href="${cert.link}" class="btn btn-sm btn-outline-light rounded-pill ${cert.link === '#' ? 'd-none' : ''}" target="_blank" rel="noopener noreferrer">Show credential</a>
+            </div>
         `;
       certScroll.appendChild(certDiv);
     });
