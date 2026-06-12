@@ -1275,6 +1275,10 @@ h1.gradient-text * {
     padding: 8px;
   }
 
+  .floating-nav .nav-scroll a:last-child {
+    margin-right: 12px;
+  }
+
   /* Disable tooltips on mobile since there is no hover */
   .floating-nav a::after {
     display: none !important;
