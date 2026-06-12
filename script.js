@@ -330,7 +330,25 @@ function setupActiveNavigation() {
     navLinks.forEach((link) => {
       const href = link.getAttribute("href");
       if (href === `#${currentId}`) {
-          if(!link.classList.contains("active")) link.classList.add("active");
+          if(!link.classList.contains("active")) {
+              link.classList.add("active");
+              
+              // Auto scroll logic for mobile carousel
+              if (window.innerWidth <= 768) {
+                  const navScroll = document.querySelector('.floating-nav .nav-scroll');
+                  if (navScroll && navScroll.contains(link)) {
+                      // Calculate the relative position to center the active link
+                      const linkLeft = link.offsetLeft;
+                      const scrollCenter = navScroll.clientWidth / 2;
+                      const linkCenter = link.clientWidth / 2;
+                      
+                      navScroll.scrollTo({
+                          left: linkLeft - scrollCenter + linkCenter,
+                          behavior: 'smooth'
+                      });
+                  }
+              }
+          }
       } else {
           if(link.classList.contains("active")) link.classList.remove("active");
       }
