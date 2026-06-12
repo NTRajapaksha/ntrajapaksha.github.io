@@ -1209,17 +1209,34 @@ h1.gradient-text * {
     border-radius: 20px;
   }
 
-  .floating-nav .d-flex {
+  /* Mobile Navigation Container */
+  .floating-nav .nav-container {
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    align-items: center;
+    gap: 0 !important;
+    padding: 0 4px;
+  }
+
+  .floating-nav .nav-fixed-home {
+    padding-right: 12px;
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+    flex-shrink: 0;
+  }
+
+  /* The rest is a horizontally scrolling carousel */
+  .floating-nav .nav-scroll {
     flex-direction: row !important;
     justify-content: flex-start !important;
     gap: 0.8rem !important;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 0 4px;
+    padding-left: 12px;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  .floating-nav .d-flex::-webkit-scrollbar {
+
+  .floating-nav .nav-scroll::-webkit-scrollbar {
     display: none;
   }
 
