@@ -1227,6 +1227,8 @@ h1.gradient-text * {
   /* The rest is a horizontally scrolling carousel */
   .floating-nav .nav-scroll {
     position: relative;
+    flex: 1;
+    min-width: 0; /* Crucial for flex child to allow inner scrolling */
     flex-direction: row !important;
     justify-content: flex-start !important;
     gap: 0.8rem !important;
