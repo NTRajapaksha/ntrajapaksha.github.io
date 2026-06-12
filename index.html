@@ -43,6 +43,9 @@
         <a href="#projects" class="text-center" data-tooltip="Projects">
           <i class="fas fa-code fa-lg"></i>
         </a>
+        <a href="#articles" class="text-center" data-tooltip="Articles">
+          <i class="fas fa-newspaper fa-lg"></i>
+        </a>
         <a href="#skills" class="text-center" data-tooltip="Skills">
           <i class="fas fa-chart-bar fa-lg"></i>
         </a>
@@ -1850,7 +1853,77 @@
   </div>
 </section>
 
-  
+<!-- Articles Section -->
+<section id="articles" class="py-5">
+  <div class="container">
+    <div class="section-card p-5 animate-on-scroll">
+      <h2 class="text-center mb-5 display-4 fw-bold gradient-text">
+        Articles
+      </h2>
+      <div class="row justify-content-center">
+        <!-- Article 1 -->
+        <div class="col-md-6 mb-4">
+          <div class="article-card p-0 h-100 d-flex flex-column overflow-hidden position-relative">
+            <!-- Article Preview Faded Area -->
+            <div class="article-preview position-relative" style="height: 220px; overflow: hidden; mask-image: linear-gradient(to bottom, black 20%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%);">
+               <img src="images/articles/art2.png" alt="Can a 3B Parameter Model Prep Data for XGBoost?" style="width: 100%; height: 100%; object-fit: cover; object-position: center top;">
+            </div>
+            
+            <!-- Actual Card Content -->
+            <div class="p-4 d-flex flex-column flex-grow-1" style="background: linear-gradient(to bottom, rgba(11, 15, 25, 0.4) 0%, var(--glass-bg) 40%, var(--glass-bg) 100%); margin-top: -100px; position: relative; z-index: 2;">
+               <div class="d-flex align-items-center mb-3 mt-4 pt-2">
+                 <div class="gradient-bg rounded-circle p-3 me-3 flex-shrink-0">
+                   <i class="fab fa-linkedin-in text-white fa-lg"></i>
+                 </div>
+                 <h3 class="mb-0 fs-5 text-white">Can a 3B Parameter Model Prep Data for XGBoost? A Local AI Copilot Experiment</h3>
+               </div>
+               <p class="text-muted flex-grow-1" style="font-size: 0.95rem;">
+                 The first hour of any data project is objectively the worst. Staring at messy CSVs, guessing cryptically named columns, and writing endless .info() and pd.to_datetime() commands is the ultimate data engineering grunt work.
+                 </p>
+                 <p class="text-muted flex-grow-1" style="font-size: 0.95rem;">
+                 So, I decided to automate it. A fully automated, local Data Engineering Copilot to see if small, free, 3B-parameter models (like Llama 3.2 and Phi-3) could replace my Pandas boilerplate code.
+
+               </p>
+               <a href="https://www.linkedin.com/pulse/can-3b-parameter-model-prep-data-xgboost-local-ai-rajapaksha-m7skc" target="_blank" class="btn btn-glass text-white rounded-pill px-4 mt-3 align-self-start">
+                 Read Article <i class="fas fa-external-link-alt ms-2"></i>
+               </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Article 2 -->
+        <div class="col-md-6 mb-4">
+          <div class="article-card p-0 h-100 d-flex flex-column overflow-hidden position-relative">
+            <!-- Article Preview Faded Area -->
+            <div class="article-preview position-relative" style="height: 220px; overflow: hidden; mask-image: linear-gradient(to bottom, black 20%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%);">
+               <img src="images/articles/art1.png" alt="Missing-Data Strategies Comparison Experiment" style="width: 100%; height: 100%; object-fit: cover; object-position: center top;">
+            </div>
+            
+            <!-- Actual Card Content -->
+            <div class="p-4 d-flex flex-column flex-grow-1" style="background: linear-gradient(to bottom, rgba(11, 15, 25, 0.4) 0%, var(--glass-bg) 40%, var(--glass-bg) 100%); margin-top: -100px; position: relative; z-index: 2;">
+               <div class="d-flex align-items-center mb-3 mt-4 pt-2">
+                 <div class="gradient-bg rounded-circle p-3 me-3 flex-shrink-0">
+                   <i class="fab fa-linkedin-in text-white fa-lg"></i>
+                 </div>
+                 <h3 class="mb-0 fs-5 text-white">I Wondered How These Five Missing-Data Strategies Actually Compare. So I Built an Experiment to Find Out.</h3>
+               </div>
+               <p class="text-muted flex-grow-1" style="font-size: 0.95rem;">
+                 I ran a controlled experiment to find out which missing data strategy actually produces the best machine learning model.
+               </p>
+               <p class="text-muted flex-grow-1" style="font-size: 0.95rem;">
+
+                 Here is what I tested: Five imputation strategies (Drop Rows, Mean/Median, Mode, KNN, MICE) across three structurally different datasets (Heart Disease, Pima Indians Diabetes, Melbourne Housing), with missingness injected at 10%, 20%, and 30% rates. The only judge was downstream Random Forest F1 score.
+               </p>
+               <a href="https://www.linkedin.com/pulse/i-wondered-how-five-missing-data-strategies-actually-so-rajapaksha-7orqc" target="_blank" class="btn btn-glass text-white rounded-pill px-4 mt-3 align-self-start">
+                 Read Article <i class="fas fa-external-link-alt ms-2"></i>
+               </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
     <section id="skills" class="py-5">
       <div class="container">
