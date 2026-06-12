@@ -1316,5 +1316,33 @@ h1.gradient-text * {
   user-select: none;
 }
 
+/* ===== MOBILE GLOW & PERFORMANCE OPTIMIZATIONS ===== */
+@media (max-width: 768px) {
+  /* Fix laggy scroll: Disable heavy blur calculation and use hardware acceleration */
+  .section-card, .project-card, .article-card, .achievement-card, .skill-item, .cert-item, .floating-nav {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform, opacity;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  
+  .floating-nav {
+    background: rgba(11, 15, 25, 0.98) !important;
+  }
+
+  /* Auto glow effect on scroll */
+  .project-card.active-glow,
+  .article-card.active-glow,
+  .achievement-card.active-glow,
+  .skill-item.active-glow,
+  .cert-item.active-glow {
+    transform: translateY(-5px) scale(1.02) translateZ(0) !important;
+    -webkit-transform: translateY(-5px) scale(1.02) translateZ(0) !important;
+    box-shadow: 0 15px 30px rgba(79, 70, 229, 0.25) !important;
+    border-color: var(--primary-color) !important;
+    background: rgba(17, 25, 40, 0.98) !important;
+  }
+}
 
 
