@@ -1366,7 +1366,7 @@ h1.gradient-text * {
 /* ===== MOBILE GLOW & PERFORMANCE OPTIMIZATIONS ===== */
 @media (max-width: 768px) {
   /* Fix laggy scroll: Disable heavy blur calculation and use hardware acceleration */
-  .section-card, .project-card, .article-card, .achievement-card, .skill-item, .cert-item, .floating-nav {
+  .section-card, .project-card, .article-card, .achievement-card, .skill-item, .cert-item, .floating-nav, .tech-tag, .core-strength-card, .skill-tag {
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
     will-change: transform, opacity;
