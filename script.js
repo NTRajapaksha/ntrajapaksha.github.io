@@ -629,7 +629,8 @@ function initTypewriter() {
 function initParticles() {
   if (document.getElementById('particles-js') && typeof particlesJS !== 'undefined') {
     const isMobile = window.innerWidth <= 768;
-    const particleCount = isMobile ? 30 : 80;
+    if (isMobile) return; // Completely disable particles on mobile for performance
+    const particleCount = 80;
     
     particlesJS('particles-js', {
       "particles": {
