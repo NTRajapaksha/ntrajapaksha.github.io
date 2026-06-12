@@ -1226,6 +1226,7 @@ h1.gradient-text * {
 
   /* The rest is a horizontally scrolling carousel */
   .floating-nav .nav-scroll {
+    position: relative;
     flex-direction: row !important;
     justify-content: flex-start !important;
     gap: 0.8rem !important;
