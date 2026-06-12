@@ -322,14 +322,14 @@ h1.gradient-text * {
 
 /* Mobile navigation active states */
 @media (max-width: 768px) {
-  .nav-icon.active {
+  .floating-nav a.active {
     background: var(--gradient-1);
     color: white;
     border-color: var(--primary-color);
     transform: scale(1.1);
   }
   
-  .nav-icon.active::before {
+  .floating-nav a.active::before {
     display: none; /* Remove pulse on mobile */
   }
 }
@@ -1211,8 +1211,21 @@ h1.gradient-text * {
 
   .floating-nav .d-flex {
     flex-direction: row !important;
-    justify-content: space-evenly !important;
-    gap: 0.2rem !important;
+    justify-content: flex-start !important;
+    gap: 0.8rem !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 4px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .floating-nav .d-flex::-webkit-scrollbar {
+    display: none;
+  }
+
+  .floating-nav a {
+    flex: 0 0 auto;
+    padding: 8px;
   }
 
   /* Disable tooltips on mobile since there is no hover */
@@ -1273,6 +1286,34 @@ h1.gradient-text * {
 .project-card .btn-glass {
   margin-top: auto !important;
   align-self: flex-start;
+}
+
+/* ===== ARTICLES SECTION ===== */
+.article-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(20px);
+  border: 1px solid var(--glass-border);
+}
+
+.article-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.article-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(79, 70, 229, 0.15);
+  border-color: var(--primary-color);
+}
+
+.article-preview {
+  pointer-events: none;
+  user-select: none;
 }
 
 
