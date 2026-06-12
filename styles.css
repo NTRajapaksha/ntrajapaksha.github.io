@@ -1053,7 +1053,7 @@ h1.gradient-text * {
   }
 
   .certification-scroll.expanded {
-    max-height: 1200px;
+    max-height: 10000px;
   }
 
   .cert-item {
