@@ -114,6 +114,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Setup project filtering
   setupProjectFilters();
 
+  // Setup mobile scroll glow effect
+  if (window.innerWidth <= 768) {
+    setupMobileGlow();
+  }
+
   // Initialize New Libraries
   initTypewriter();
   initParticles();
@@ -581,6 +586,29 @@ function setupSkillTagAnimation() {
       }, index * 100);
     }, 500);
   });
+}
+
+function setupMobileGlow() {
+  const glowObserverOptions = {
+    threshold: 0.3,
+    rootMargin: "-25% 0px -25% 0px"
+  };
+
+  const glowObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active-glow");
+      } else {
+        entry.target.classList.remove("active-glow");
+      }
+    });
+  }, glowObserverOptions);
+
+  document
+    .querySelectorAll(".project-card, .article-card, .achievement-card, .skill-item, .cert-item")
+    .forEach((el) => {
+      glowObserver.observe(el);
+    });
 }
 
 // ===== NEW LIBRARY INITIALIZATIONS =====
