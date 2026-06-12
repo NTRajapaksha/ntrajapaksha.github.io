@@ -57,6 +57,15 @@ const observer = new IntersectionObserver((entries) => {
               card.classList.add("visible");
             }, index * 200);
           });
+
+        // Animate article cards
+        entry.target
+          .querySelectorAll(".article-card")
+          .forEach((card, index) => {
+            setTimeout(() => {
+              card.classList.add("visible");
+            }, index * 200);
+          });
       }
     }
   });
@@ -67,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Observe elements for animation
   document
     .querySelectorAll(
-      ".section-card, .project-card, .education-card, .soft-skill-card, .achievement-card"
+      ".section-card, .project-card, .education-card, .soft-skill-card, .achievement-card, .article-card"
     )
     .forEach((element) => {
       observer.observe(element);
