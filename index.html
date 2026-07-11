@@ -1876,7 +1876,43 @@
           Research & Experiments
         </h2>
         <div class="row justify-content-center">
+      
         <!-- Article 1 -->
+        <div class="col-md-6 mb-4">
+          <div class="article-card p-0 h-100 d-flex flex-column overflow-hidden position-relative">
+            <!-- Article Preview Faded Area -->
+            <div class="article-preview position-absolute w-100" style="top: 0; left: 0; height: 220px; overflow: hidden; mask-image: linear-gradient(to bottom, black 20%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%); z-index: 0;">
+               <img src="images/articles/art3.png" alt="Building a Bulletproof Multi-Agent Data Analyst with CrewAI (and Why Small LLMs Fail at It)" style="width: 100%; height: 100%; object-fit: cover; object-position: center top;">
+            </div>
+            
+            <!-- Actual Card Content -->
+            <div class="p-4 d-flex flex-column flex-grow-1" style="background: linear-gradient(to bottom, transparent 0%, rgba(11, 15, 25, 0.8) 120px, var(--glass-bg) 180px); position: relative; z-index: 2; padding-top: 100px !important;">
+               <div class="d-flex align-items-center mb-3 mt-4 pt-2">
+                 <div class="gradient-bg rounded-circle p-3 me-3 flex-shrink-0">
+                   <i class="fab fa-linkedin-in text-white fa-lg"></i>
+                 </div>
+                 <h3 class="mb-0 fs-5 text-white">Building a Bulletproof Multi-Agent Data Analyst with CrewAI (and Why Small LLMs Fail at It)</h3>
+               </div>
+               <p class="text-muted flex-grow-1" style="font-size: 0.95rem;">
+                 I wanted to see what it actually takes to build a bulletproof, autonomous AI data analyst.
+                 Can you fully automate Exploratory Data Analysis (EDA) with AI Agents? Yes. 
+                 Can you do it just by feeding a CSV into an LLM? Absolutely not.
+                 </p>
+                 <p class="text-muted flex-grow-1" style="font-size: 0.95rem;">
+                 The biggest lesson? 𝐋𝐚𝐫𝐠𝐞 𝐋𝐚𝐧𝐠𝐮𝐚𝐠𝐞 𝐌𝐨𝐝𝐞𝐥𝐬 𝐚𝐫𝐞 𝐭𝐞𝐫𝐫𝐢𝐛𝐥𝐞 𝐚𝐭 𝐦𝐚𝐭𝐡.
+                 If you feed them raw CSVs, they will confidently hallucinate your statistics.
+               </p>
+              <p class="text-muted flex-grow-1" style="font-size: 0.95rem;">
+                To solve this, I had to completely decouple computation from interpretation. I built strict Python tools to let Pandas handle the deterministic math, while the LLMs focused entirely on heuristics and business insights.
+              </p>
+               <a href="https://www.linkedin.com/pulse/building-bulletproof-multi-agent-data-analyst-crewai-why-rajapaksha-erkmc" target="_blank" class="btn btn-glass text-white rounded-pill px-4 mt-3 align-self-start">
+                 Read Article <i class="fas fa-external-link-alt ms-2"></i>
+               </a>
+            </div>
+          </div>
+        </div>
+          
+        <!-- Article -->
         <div class="col-md-6 mb-4">
           <div class="article-card p-0 h-100 d-flex flex-column overflow-hidden position-relative">
             <!-- Article Preview Faded Area -->
