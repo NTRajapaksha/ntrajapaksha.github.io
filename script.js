@@ -107,6 +107,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Setup project reveal functionality
   setupProjectReveal();
 
+  // Setup article reveal functionality
+  setupArticleReveal();
+
   setupSkillTagAnimation();
 
   setupActiveNavigation();
@@ -386,6 +389,24 @@ function setupActiveNavigation() {
 // Setup project reveal functionality
 function setupProjectReveal() {
   const showMoreBtn = document.getElementById("showMoreBtn");
+  const projectsContainer = document.getElementById("projectsContainer");
+  
+  if (!showMoreBtn || !projectsContainer) return;
+
+  const allProjects = Array.from(projectsContainer.querySelectorAll(".project-item"));
+  const VISIBLE_COUNT = 4;
+  
+  if (allProjects.length <= VISIBLE_COUNT) {
+    showMoreBtn.style.display = "none";
+    return;
+  }
+  
+  allProjects.forEach((project, index) => {
+    if (index >= VISIBLE_COUNT) {
+      project.classList.add("hidden-project");
+    }
+  });
+
   const hiddenProjectsElements = document.querySelectorAll(".hidden-project");
   let projectsVisible = false;
 
@@ -481,6 +502,87 @@ function setupProjectReveal() {
       }, 1000);
     });
   }
+}
+
+// Setup article reveal functionality
+function setupArticleReveal() {
+  const showMoreBtn = document.getElementById("showMoreArticlesBtn");
+  const articlesContainer = document.getElementById("articlesContainer");
+
+  if (!showMoreBtn || !articlesContainer) return;
+
+  const allArticles = Array.from(articlesContainer.querySelectorAll(".col-md-6"));
+
+  if (allArticles.length <= 4) {
+    showMoreBtn.style.display = "none";
+    return;
+  }
+
+  showMoreBtn.style.display = "inline-block";
+  let articlesVisible = false;
+
+  const hiddenArticles = allArticles.slice(4);
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "articles-wrapper w-100";
+  wrapper.style.overflow = "hidden";
+  wrapper.style.transition = "height 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
+  wrapper.style.height = "0px";
+
+  const innerRow = document.createElement("div");
+  innerRow.className = "row justify-content-center w-100 m-0";
+
+  hiddenArticles.forEach(article => {
+    article.style.opacity = "0";
+    article.style.transform = "translateY(20px)";
+    article.style.transition = "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
+    innerRow.appendChild(article);
+  });
+
+  wrapper.appendChild(innerRow);
+  articlesContainer.appendChild(wrapper);
+
+  // Recalculate on resize
+  window.addEventListener("resize", () => {
+    if (articlesVisible) {
+      wrapper.style.height = innerRow.scrollHeight + "px";
+    }
+  }, { passive: true });
+
+  showMoreBtn.addEventListener("click", () => {
+    articlesVisible = !articlesVisible;
+
+    if (articlesVisible) {
+      const targetHeight = innerRow.scrollHeight;
+      wrapper.style.height = targetHeight + "px";
+
+      hiddenArticles.forEach((article, index) => {
+        setTimeout(() => {
+          article.style.opacity = "1";
+          article.style.transform = "translateY(0)";
+        }, 50 + index * 40);
+      });
+    } else {
+      wrapper.style.height = innerRow.scrollHeight + "px";
+      void wrapper.offsetHeight; // Force reflow
+
+      hiddenArticles.forEach(article => {
+        article.style.opacity = "0";
+        article.style.transform = "translateY(20px)";
+      });
+
+      wrapper.style.height = "0px";
+    }
+
+    showMoreBtn.innerHTML = articlesVisible
+      ? 'Show Less <i class="fas fa-chevron-up ms-2"></i>'
+      : 'Show More Articles <i class="fas fa-chevron-down ms-2"></i>';
+
+    showMoreBtn.classList.add("animate__animated", "animate__pulse");
+    setTimeout(() => {
+      showMoreBtn.classList.remove("animate__animated", "animate__pulse");
+    }, 1000);
+  });
 }
 
 // Setup project filtering functionality
