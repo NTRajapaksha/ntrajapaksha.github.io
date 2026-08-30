@@ -150,6 +150,7 @@ function setupCertifications() {
       link: "#", 
       description: "Demonstrates expertise in applying data science and machine learning to implement and run machine learning workloads on Azure."
     },
+    { title: "Databricks Professional ML Practitioner Path", logo: "images/logos/databricks.png", link: "#" },
     { title: "MLOps Specialization offered by Duke University", logo: "images/logos/duke.png", link: "#" },
     { title: "Google Data Analytics Professional Certificate", logo: "images/logos/google.webp", link: "#" },
     { title: "Google Business Intelligence Professional Certificate", logo: "images/logos/google.webp", link: "#" },
