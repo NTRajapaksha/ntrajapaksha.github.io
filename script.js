@@ -139,6 +139,12 @@ document.addEventListener("DOMContentLoaded", () => {
 function setupCertifications() {
   const certifications = [
     { 
+  title: "Microsoft Certified: Fabric Analytics Engineer Associate certification", 
+  logo: "images/logos/ms.webp", 
+  link: "#", 
+  description: "Demonstrates expertise in designing, creating, and managing analytical assets such as semantic models, warehouses, and lakehouses using Microsoft Fabric."
+},
+    { 
       title: "Microsoft Certified: Azure Data Scientist Associate certification", 
       logo: "images/logos/ms.webp", 
       link: "#", 
