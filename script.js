@@ -144,14 +144,12 @@ function setupCertifications() {
       title: "Microsoft Certified: Fabric Analytics Engineer Associate certification", 
       logo: "images/logos/ms.webp", 
       link: "#", 
-      pdf: "assets/dp600.pdf",
       description: "Demonstrates expertise in designing, creating, and managing analytical assets such as semantic models, warehouses, and lakehouses using Microsoft Fabric."
     },
     { 
       title: "Microsoft Certified: Azure Data Scientist Associate certification", 
       logo: "images/logos/ms.webp", 
       link: "#", 
-      pdf: "assets/dp100.pdf",
       description: "Demonstrates expertise in applying data science and machine learning to implement and run machine learning workloads on Azure."
     },
     { 
@@ -208,12 +206,10 @@ function setupCertifications() {
         ? `<img src="${cert.logo}" alt="Logo" class="cert-logo bg-white rounded p-1">` 
         : `<div class="cert-logo d-flex align-items-center justify-content-center bg-white rounded"><i class="fas fa-certificate text-primary fa-lg"></i></div>`;
       
-      const hasPdf = Boolean(cert.pdf);
       const hasLink = Boolean(cert.link && cert.link !== "#");
-      const actionsHtml = (hasPdf || hasLink) ? `
+      const actionsHtml = hasLink ? `
             <div class="cert-actions">
-                ${hasPdf ? `<a href="${cert.pdf}" class="btn btn-sm btn-outline-info rounded-pill" target="_blank" rel="noopener noreferrer">View Certificate</a>` : ''}
-                ${hasLink ? `<a href="${cert.link}" class="btn btn-sm btn-outline-light rounded-pill" target="_blank" rel="noopener noreferrer">Show credential</a>` : ''}
+                <a href="${cert.link}" class="btn btn-sm btn-outline-light rounded-pill" target="_blank" rel="noopener noreferrer">Show credential</a>
             </div>` : '';
 
       certDiv.innerHTML = `
