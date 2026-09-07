@@ -303,6 +303,13 @@ h1.gradient-text * {
     gap: 8px;
     width: 100%;
     max-width: 280px;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(17, 25, 40, 0.92) !important;
+  }
+  .hero-certs-ribbon::after {
+    display: none !important;
+    animation: none !important;
   }
   .hero-cert-divider {
     display: none !important;
@@ -1001,38 +1008,33 @@ h1.gradient-text * {
 }
 
 .certification-scroll {
-  max-height: 400px;
-  overflow: hidden;
-  transition: max-height 0.6s ease-in-out;
+  max-height: none;
+  overflow: visible;
   position: relative;
+  padding: 8px 6px;
+  margin: -8px -6px;
 }
 
 .certification-scroll.expanded {
-  max-height: 5000px;
+  max-height: none;
 }
 
 .certification-scroll:not(.expanded)::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
-  background: linear-gradient(transparent, white);
-  pointer-events: none;
+  display: none;
 }
 
 .cert-item {
   opacity: 0;
   transform: translateY(20px);
-  transition: all 0.4s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  padding: 18px;
+  border-radius: 14px;
+  padding: 16px 20px;
   margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   border-left: 4px solid var(--primary-color);
+  position: relative;
 }
 
 .cert-item.visible {
@@ -1041,20 +1043,59 @@ h1.gradient-text * {
 }
 
 .cert-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 242, 254, 0.2);
-  background: rgba(17, 25, 40, 0.9);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 242, 254, 0.22), 0 0 12px rgba(79, 70, 229, 0.15);
+  border-color: var(--primary-color);
+  background: rgba(17, 25, 40, 0.95);
 }
 
-.cert-item p {
-  font-weight: 500;
-  color: var(--text-main);
-  line-height: 1.5;
+.cert-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  width: 100%;
 }
 
-.cert-item i {
-  font-size: 1.2rem;
-  opacity: 0.8;
+.cert-main-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.cert-logo {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.cert-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.cert-title {
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #f1f5f9;
+}
+
+.cert-desc {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: rgba(226, 232, 240, 0.7);
+}
+
+.cert-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .certification-badge {
@@ -1259,20 +1300,69 @@ h1.gradient-text * {
   }
 
   .certification-scroll {
-    max-height: 350px;
+    max-height: none;
+    overflow: visible;
   }
 
   .certification-scroll.expanded {
-    max-height: 10000px;
+    max-height: none;
   }
 
   .cert-item {
-    padding: 15px;
-    margin-bottom: 10px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
   }
 
-  .cert-item i {
-    font-size: 1rem;
+  .cert-item .cert-body {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+  }
+
+  .cert-item .cert-main-info {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.85rem;
+    width: 100%;
+  }
+
+  .cert-item .cert-logo {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    margin-right: 0;
+  }
+
+  .cert-item .cert-text {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .cert-item .cert-title {
+    font-size: 0.96rem;
+    line-height: 1.35;
+  }
+
+  .cert-item .cert-desc {
+    font-size: 0.82rem;
+    line-height: 1.4;
+    margin-top: 0.3rem;
+  }
+
+  .cert-item .cert-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    margin-left: 0;
+    gap: 0.5rem;
+  }
+
+  .cert-item .cert-actions .btn {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.9rem;
   }
 
   #showMoreCerts {
@@ -1380,14 +1470,22 @@ h1.gradient-text * {
     font-size: 0.8rem;
   }
 
-  .cert-item .d-flex {
-    flex-direction: column;
-    align-items: flex-start;
+  .cert-item {
+    padding: 12px 14px !important;
   }
 
-  .cert-item i {
-    margin-bottom: 8px;
-    margin-right: 0 !important;
+  .cert-item .cert-title {
+    font-size: 0.92rem !important;
+  }
+
+  .cert-item .cert-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .cert-item .cert-actions .btn {
+    font-size: 0.78rem !important;
+    padding: 0.32rem 0.75rem !important;
   }
 }
 
@@ -1577,14 +1675,26 @@ h1.gradient-text * {
 }
 
 .article-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(79, 70, 229, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(79, 70, 229, 0.2);
   border-color: var(--primary-color);
 }
 
 .article-preview {
   pointer-events: none;
   user-select: none;
+}
+
+/* ===== CARD ACTIVE GLOW (WEB & MOBILE VIEWPORTS) ===== */
+.project-card.active-glow,
+.article-card.active-glow,
+.achievement-card.active-glow,
+.skill-item.active-glow,
+.cert-item.active-glow {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 24px rgba(0, 242, 254, 0.24), 0 0 14px rgba(79, 70, 229, 0.18) !important;
+  border-color: var(--primary-color) !important;
+  background: rgba(17, 25, 40, 0.98) !important;
 }
 
 /* ===== MOBILE GLOW & PERFORMANCE OPTIMIZATIONS ===== */
@@ -1603,17 +1713,14 @@ h1.gradient-text * {
     background: rgba(11, 15, 25, 0.98) !important;
   }
 
-  /* Auto glow effect on scroll */
+  /* Hardware-accelerated lift on mobile without horizontal scale clipping */
   .project-card.active-glow,
   .article-card.active-glow,
   .achievement-card.active-glow,
   .skill-item.active-glow,
   .cert-item.active-glow {
-    transform: translateY(-5px) scale(1.02) translateZ(0) !important;
-    -webkit-transform: translateY(-5px) scale(1.02) translateZ(0) !important;
-    box-shadow: 0 15px 30px rgba(79, 70, 229, 0.25) !important;
-    border-color: var(--primary-color) !important;
-    background: rgba(17, 25, 40, 0.98) !important;
+    transform: translateY(-4px) translateZ(0) !important;
+    -webkit-transform: translateY(-4px) translateZ(0) !important;
   }
 }
 
@@ -1672,6 +1779,14 @@ h1.gradient-text * {
 .spotlight-card:hover::after {
   opacity: 1;
 }
+
+@media (max-width: 768px) {
+  .spotlight-card::before,
+  .spotlight-card::after {
+    display: none !important;
+  }
+}
+
 
 
 
