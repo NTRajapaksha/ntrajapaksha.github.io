@@ -202,23 +202,30 @@ function setupCertifications() {
     // Create certification items
     certifications.forEach((cert) => {
       const certDiv = document.createElement("div");
-      certDiv.className = "cert-item mb-3 p-3 rounded bg-glass d-flex align-items-center justify-content-between";
+      certDiv.className = "cert-item mb-3 rounded bg-glass";
       
       const logoHtml = cert.logo 
-        ? `<img src="${cert.logo}" alt="Logo" style="width: 45px; height: 45px; object-fit: contain;" class="me-3 bg-white rounded p-1">` 
-        : `<div class="me-3 d-flex align-items-center justify-content-center bg-white rounded" style="width: 45px; height: 45px;"><i class="fas fa-certificate text-primary fa-lg"></i></div>`;
+        ? `<img src="${cert.logo}" alt="Logo" class="cert-logo bg-white rounded p-1">` 
+        : `<div class="cert-logo d-flex align-items-center justify-content-center bg-white rounded"><i class="fas fa-certificate text-primary fa-lg"></i></div>`;
       
+      const hasPdf = Boolean(cert.pdf);
+      const hasLink = Boolean(cert.link && cert.link !== "#");
+      const actionsHtml = (hasPdf || hasLink) ? `
+            <div class="cert-actions">
+                ${hasPdf ? `<a href="${cert.pdf}" class="btn btn-sm btn-outline-info rounded-pill" target="_blank" rel="noopener noreferrer">View Certificate</a>` : ''}
+                ${hasLink ? `<a href="${cert.link}" class="btn btn-sm btn-outline-light rounded-pill" target="_blank" rel="noopener noreferrer">Show credential</a>` : ''}
+            </div>` : '';
+
       certDiv.innerHTML = `
-            <div class="d-flex align-items-center">
-                ${logoHtml}
-                <div>
-                  <p class="mb-0 fw-medium">${cert.title}</p>
-                  ${cert.description ? `<small class="text-white-50 d-block mt-1" style="font-size: 0.85rem; line-height: 1.4;">${cert.description}</small>` : ''}
-                </div>
-            </div>
-            <div class="d-flex gap-2 ms-3 flex-shrink-0 flex-wrap justify-content-end mt-2 mt-sm-0">
-                ${cert.pdf ? `<a href="${cert.pdf}" class="btn btn-sm btn-outline-info rounded-pill" target="_blank" rel="noopener noreferrer">View Certificate</a>` : ''}
-                <a href="${cert.link}" class="btn btn-sm btn-outline-light rounded-pill ${cert.link === '#' ? 'd-none' : ''}" target="_blank" rel="noopener noreferrer">Show credential</a>
+            <div class="cert-body">
+              <div class="cert-main-info">
+                  ${logoHtml}
+                  <div class="cert-text">
+                    <p class="mb-0 fw-medium cert-title text-white">${cert.title}</p>
+                    ${cert.description ? `<small class="text-white-50 d-block mt-1 cert-desc">${cert.description}</small>` : ''}
+                  </div>
+              </div>
+              ${actionsHtml}
             </div>
         `;
       certScroll.appendChild(certDiv);
@@ -242,12 +249,14 @@ function setupCertifications() {
 
     const hiddenCerts = certItems.slice(initialVisibleCount);
     
-    // Create animatable wrapper for hidden certs
+    // Create animatable wrapper for hidden certs with generous padding to prevent glow clipping
     const wrapper = document.createElement("div");
     wrapper.className = "certs-wrapper";
     wrapper.style.overflow = "hidden";
     wrapper.style.transition = "height 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
     wrapper.style.height = "0px";
+    wrapper.style.padding = "6px 4px";
+    wrapper.style.margin = "-6px -4px";
 
     // Move hidden certs into wrapper
     hiddenCerts.forEach(cert => {
@@ -278,11 +287,15 @@ function setupCertifications() {
         });
 
         setTimeout(() => {
-          if (isExpanded) wrapper.style.height = "auto";
-        }, 400);
+          if (isExpanded) {
+            wrapper.style.height = "auto";
+            wrapper.style.overflow = "visible"; // Allow card glows/shadows to bleed cleanly without edge clipping
+          }
+        }, 420);
 
       } else {
-        // Contract
+        // Contract: set overflow hidden so collapsing animation clips cleanly
+        wrapper.style.overflow = "hidden";
         wrapper.style.height = wrapper.scrollHeight + "px";
         
         // Scroll back up gently
@@ -444,7 +457,8 @@ function setupProjectReveal() {
     wrapper.style.overflow = "hidden";
     wrapper.style.transition = "height 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
     wrapper.style.height = "0px";
-    wrapper.style.padding = "0 4px"; // Prevent card border clipping at edges
+    wrapper.style.padding = "8px 6px"; // Prevent card border and glow clipping
+    wrapper.style.margin = "-8px -6px";
 
     // Create an inner row to maintain Bootstrap grid behavior
     const innerRow = document.createElement("div");
@@ -820,60 +834,48 @@ function initCertCounters() {
   const counterElements = document.querySelectorAll(".hero-cert-num");
   if (!counterElements.length) return;
 
-  const duration = 1200; // ms
-  const frameRate = 1000 / 60; // 60 FPS
-  const totalFrames = Math.round(duration / frameRate);
-
-  const startCounter = (el, delay) => {
+  const animateCounter = (el, delay) => {
     setTimeout(() => {
       const target = parseInt(el.getAttribute("data-target") || "2", 10);
-      let frame = 0;
-
-      const timer = setInterval(() => {
-        frame++;
-        const progress = frame / totalFrames;
-        // Ease-out cubic formula
-        const easeOutProgress = 1 - Math.pow(1 - progress, 3);
-        const currentVal = Math.min(Math.round(easeOutProgress * target), target);
-        el.textContent = currentVal;
-
-        if (frame >= totalFrames) {
-          el.textContent = target;
-          clearInterval(timer);
+      let count = 0;
+      const stepTime = 160;
+      const stepTimer = setInterval(() => {
+        count++;
+        el.textContent = count;
+        if (count >= target) {
+          clearInterval(stepTimer);
           const countBadge = el.closest(".hero-cert-count");
           if (countBadge) {
-            countBadge.classList.remove("animated-pop");
-            void countBadge.offsetWidth; // Force reflow
             countBadge.classList.add("animated-pop");
           }
         }
-      }, frameRate);
+      }, stepTime);
     }, delay);
   };
 
-  // Stagger start counters after hero profile animation
   setTimeout(() => {
     counterElements.forEach((el, index) => {
-      startCounter(el, index * 220);
+      animateCounter(el, index * 140);
     });
-  }, 1000);
+  }, 800);
 
-  // Add interactive hover re-trigger
-  document.querySelectorAll(".hero-cert-item").forEach((item) => {
-    item.addEventListener("mouseenter", () => {
-      const countBadge = item.querySelector(".hero-cert-count");
-      if (countBadge) {
-        countBadge.classList.remove("animated-pop");
-        void countBadge.offsetWidth;
-        countBadge.classList.add("animated-pop");
-      }
+  // Desktop hover re-trigger (skip touch devices)
+  if (!window.matchMedia("(pointer: coarse)").matches) {
+    document.querySelectorAll(".hero-cert-item").forEach((item) => {
+      item.addEventListener("mouseenter", () => {
+        const countBadge = item.querySelector(".hero-cert-count");
+        if (countBadge) {
+          countBadge.classList.remove("animated-pop");
+          setTimeout(() => countBadge.classList.add("animated-pop"), 10);
+        }
+      });
     });
-  });
+  }
 }
 
 // ===== FEATURE B: VERCEL/LINEAR-STYLE CURSOR SPOTLIGHT =====
 function initSpotlight() {
-  if (window.matchMedia("(pointer: coarse)").matches) return;
+  if (window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 768) return;
 
   const spotlightTargets = document.querySelectorAll(
     ".section-card, .project-card, .education-card, .skill-item, .achievement-card, .hero-certs-ribbon"
