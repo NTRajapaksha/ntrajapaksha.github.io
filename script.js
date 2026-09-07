@@ -125,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize New Libraries
   initTypewriter();
   initParticles();
+  initCertCounters();
   
   if (typeof AOS !== 'undefined') {
     AOS.init({
@@ -798,6 +799,61 @@ function initParticles() {
       "retina_detect": true
     });
   }
+}
+
+function initCertCounters() {
+  const counterElements = document.querySelectorAll(".hero-cert-num");
+  if (!counterElements.length) return;
+
+  const duration = 1200; // ms
+  const frameRate = 1000 / 60; // 60 FPS
+  const totalFrames = Math.round(duration / frameRate);
+
+  const startCounter = (el, delay) => {
+    setTimeout(() => {
+      const target = parseInt(el.getAttribute("data-target") || "2", 10);
+      let frame = 0;
+
+      const timer = setInterval(() => {
+        frame++;
+        const progress = frame / totalFrames;
+        // Ease-out cubic formula
+        const easeOutProgress = 1 - Math.pow(1 - progress, 3);
+        const currentVal = Math.min(Math.round(easeOutProgress * target), target);
+        el.textContent = currentVal;
+
+        if (frame >= totalFrames) {
+          el.textContent = target;
+          clearInterval(timer);
+          const countBadge = el.closest(".hero-cert-count");
+          if (countBadge) {
+            countBadge.classList.remove("animated-pop");
+            void countBadge.offsetWidth; // Force reflow
+            countBadge.classList.add("animated-pop");
+          }
+        }
+      }, frameRate);
+    }, delay);
+  };
+
+  // Stagger start counters after hero profile animation
+  setTimeout(() => {
+    counterElements.forEach((el, index) => {
+      startCounter(el, index * 220);
+    });
+  }, 1000);
+
+  // Add interactive hover re-trigger
+  document.querySelectorAll(".hero-cert-item").forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      const countBadge = item.querySelector(".hero-cert-count");
+      if (countBadge) {
+        countBadge.classList.remove("animated-pop");
+        void countBadge.offsetWidth;
+        countBadge.classList.add("animated-pop");
+      }
+    });
+  });
 }
 
 
