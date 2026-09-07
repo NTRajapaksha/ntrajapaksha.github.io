@@ -122,10 +122,11 @@ document.addEventListener("DOMContentLoaded", () => {
     setupMobileGlow();
   }
 
-  // Initialize New Libraries
+  // Initialize New Libraries & Interactive Features
   initTypewriter();
   initParticles();
   initCertCounters();
+  initSpotlight();
   
   if (typeof AOS !== 'undefined') {
     AOS.init({
@@ -140,16 +141,30 @@ document.addEventListener("DOMContentLoaded", () => {
 function setupCertifications() {
   const certifications = [
     { 
-  title: "Microsoft Certified: Fabric Analytics Engineer Associate certification", 
-  logo: "images/logos/ms.webp", 
-  link: "#", 
-  description: "Demonstrates expertise in designing, creating, and managing analytical assets such as semantic models, warehouses, and lakehouses using Microsoft Fabric."
-},
+      title: "Microsoft Certified: Fabric Analytics Engineer Associate certification", 
+      logo: "images/logos/ms.webp", 
+      link: "#", 
+      pdf: "assets/dp600.pdf",
+      description: "Demonstrates expertise in designing, creating, and managing analytical assets such as semantic models, warehouses, and lakehouses using Microsoft Fabric."
+    },
     { 
       title: "Microsoft Certified: Azure Data Scientist Associate certification", 
       logo: "images/logos/ms.webp", 
       link: "#", 
+      pdf: "assets/dp100.pdf",
       description: "Demonstrates expertise in applying data science and machine learning to implement and run machine learning workloads on Azure."
+    },
+    { 
+      title: "Agentic AI Foundations Associate", 
+      logo: "images/logos/oracle.svg", 
+      link: "#", 
+      // description: "Demonstrates practical competence in developing, training, orchestrating, and deploying scalable machine learning and predictive AI pipelines on Oracle Cloud."
+    },
+    { 
+      title: "Oracle AI Database Foundations Associate", 
+      logo: "images/logos/oracle.svg", 
+      link: "#", 
+      // description: "Validates deep foundational mastery of relational database architecture, complex SQL querying, and database performance optimization."
     },
     { title: "Databricks Professional ML Practitioner Path", logo: "images/logos/databricks.png", link: "#" },
     { title: "MLOps Specialization offered by Duke University", logo: "images/logos/duke.png", link: "#" },
@@ -855,5 +870,27 @@ function initCertCounters() {
     });
   });
 }
+
+// ===== FEATURE B: VERCEL/LINEAR-STYLE CURSOR SPOTLIGHT =====
+function initSpotlight() {
+  if (window.matchMedia("(pointer: coarse)").matches) return;
+
+  const spotlightTargets = document.querySelectorAll(
+    ".section-card, .project-card, .education-card, .skill-item, .achievement-card, .hero-certs-ribbon"
+  );
+
+  spotlightTargets.forEach((card) => {
+    card.classList.add("spotlight-card");
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty("--mouse-x", `${x}px`);
+      card.style.setProperty("--mouse-y", `${y}px`);
+    });
+  });
+}
+
+
 
 
