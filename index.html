@@ -18,7 +18,7 @@
     />
     <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=4" />
+    <link rel="stylesheet" href="styles.css?v=7" />
     <link rel="icon" type="image/png" href="images/profile-logo.png" />
     <link rel="apple-touch-icon" href="images/profile-logo.png">
     <link rel="icon" type="image/png" sizes="192x192" href="images/profile-logo.png">
@@ -81,6 +81,44 @@
               id="typewriter-text"
               class="hero-title animate__animated animate__fadeInUp animate__delay-1s mb-0"
             ></p>
+          </div>
+          <!-- Certification Count Ribbon -->
+          <div class="hero-certs-container mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+            <div class="hero-certs-ribbon">
+              <!-- Microsoft Certified -->
+              <a href="#certifications" class="hero-cert-item" title="Microsoft Certified">
+                <span class="hero-cert-logo-box">
+                  <img src="images/logos/ms.webp" alt="Microsoft" class="hero-cert-logo" />
+                </span>
+                <span class="hero-cert-text">
+                  <span class="hero-cert-count"><span class="hero-cert-num" data-target="2">0</span>x</span> Microsoft Certified
+                </span>
+              </a>
+
+              <span class="hero-cert-divider">|</span>
+
+              <!-- Google Certified -->
+              <a href="#certifications" class="hero-cert-item" title="Google Certified">
+                <span class="hero-cert-logo-box">
+                  <img src="images/logos/google.webp" alt="Google" class="hero-cert-logo" />
+                </span>
+                <span class="hero-cert-text">
+                  <span class="hero-cert-count"><span class="hero-cert-num" data-target="2">0</span>x</span> Google Certified
+                </span>
+              </a>
+
+              <span class="hero-cert-divider">|</span>
+
+              <!-- Oracle Certified -->
+              <a href="#certifications" class="hero-cert-item" title="Oracle Certified">
+                <span class="hero-cert-logo-box">
+                  <img src="images/logos/oracle.svg" alt="Oracle" class="hero-cert-logo" />
+                </span>
+                <span class="hero-cert-text">
+                  <span class="hero-cert-count"><span class="hero-cert-num" data-target="2">0</span>x</span> Oracle Certified
+                </span>
+              </a>
+            </div>
           </div>
           <div class="mb-4 animate__animated animate__fadeInUp animate__delay-1s">
         <a href="assets/Thathsara-Rajapaksha.pdf" id="resume-btn" target="_blank" class="btn btn-glass text-white btn-lg rounded-pill px-5 shadow hero-resume-btn">
@@ -387,6 +425,10 @@
                       <span class="skill-tag">
                           <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="Google Cloud" class="skill-tag-logo">
                           Google Cloud
+                      </span>
+                      <span class="skill-tag">
+                          <img src="images/logos/oracle.svg" alt="Oracle" class="skill-tag-logo">
+                          Oracle
                       </span>
                       <span class="skill-tag">
                           <i class="fas fa-snowflake skill-tag-icon"></i>
@@ -2812,7 +2854,7 @@ Did it instantly beat a 10-minute AutoGluon ensemble on small datasets? Yes.
           </div>
 
           <!-- Professional Certifications -->
-          <div class="mt-5">
+          <div class="mt-5" id="certifications">
             <h3 class="text-center mb-4 gradient-text">
               Professional Certifications
             </h3>
