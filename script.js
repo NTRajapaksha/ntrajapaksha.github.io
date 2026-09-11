@@ -874,7 +874,7 @@ function initSpotlight() {
   if (window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 768) return;
 
   const spotlightTargets = document.querySelectorAll(
-    ".section-card, .project-card, .education-card, .skill-item, .achievement-card, .hero-certs-ribbon"
+    ".section-card, .project-card, .education-card, .skill-item, .achievement-card, .hero-certs-ribbon, .lifecycle-step-card, .solution-archetype-card, .lifecycle-hero-banner"
   );
 
   spotlightTargets.forEach((card) => {
