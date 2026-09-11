@@ -118,9 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupProjectFilters();
 
   // Setup mobile scroll glow effect
-  if (window.innerWidth <= 768) {
-    setupMobileGlow();
-  }
+  setupMobileGlow();
 
   // Initialize New Libraries & Interactive Features
   initTypewriter();
@@ -743,8 +741,8 @@ function setupSkillTagAnimation() {
 
 function setupMobileGlow() {
   const glowObserverOptions = {
-    threshold: 0.3,
-    rootMargin: "-25% 0px -25% 0px"
+    threshold: 0.15,
+    rootMargin: "-12% 0px -12% 0px"
   };
 
   const glowObserver = new IntersectionObserver((entries) => {
@@ -758,7 +756,9 @@ function setupMobileGlow() {
   }, glowObserverOptions);
 
   document
-    .querySelectorAll(".project-card, .article-card, .achievement-card, .skill-item, .cert-item")
+    .querySelectorAll(
+      ".project-card, .article-card, .achievement-card, .skill-item, .cert-item, .education-card, .soft-skill-card, .lifecycle-step-card, .solution-archetype-card, .lifecycle-hero-banner"
+    )
     .forEach((el) => {
       glowObserver.observe(el);
     });
