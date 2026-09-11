@@ -118,7 +118,14 @@ document.addEventListener("DOMContentLoaded", () => {
   setupProjectFilters();
 
   // Setup mobile scroll glow effect
-  setupMobileGlow();
+  if (window.innerWidth <= 768) {
+    setupMobileGlow();
+  }
+  window.addEventListener("resize", () => {
+    if (window.innerWidth <= 768) {
+      setupMobileGlow();
+    }
+  });
 
   // Initialize New Libraries & Interactive Features
   initTypewriter();
@@ -739,10 +746,15 @@ function setupSkillTagAnimation() {
   });
 }
 
+let mobileGlowInitialized = false;
+
 function setupMobileGlow() {
+  if (mobileGlowInitialized) return;
+  mobileGlowInitialized = true;
+
   const glowObserverOptions = {
-    threshold: 0.15,
-    rootMargin: "-12% 0px -12% 0px"
+    threshold: 0.3,
+    rootMargin: "-25% 0px -25% 0px"
   };
 
   const glowObserver = new IntersectionObserver((entries) => {
@@ -757,7 +769,7 @@ function setupMobileGlow() {
 
   document
     .querySelectorAll(
-      ".project-card, .article-card, .achievement-card, .skill-item, .cert-item, .education-card, .soft-skill-card, .lifecycle-step-card, .solution-archetype-card, .lifecycle-hero-banner"
+      ".project-card, .article-card, .achievement-card, .skill-item, .cert-item, .lifecycle-step-card, .solution-archetype-card, .lifecycle-hero-banner"
     )
     .forEach((el) => {
       glowObserver.observe(el);
