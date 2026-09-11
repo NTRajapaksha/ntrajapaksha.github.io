@@ -1787,6 +1787,222 @@ h1.gradient-text * {
   }
 }
 
+/* ===== WHAT I BUILD & LIFECYCLE SECTION ===== */
+.text-cyan {
+  color: var(--primary-color) !important;
+}
+
+.lifecycle-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 242, 254, 0.08);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  color: var(--primary-color);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 6px 18px;
+  border-radius: 50px;
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+  text-transform: uppercase;
+}
+
+.lifecycle-hero-banner {
+  background: rgba(17, 25, 40, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 242, 254, 0.22);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: all 0.4s ease;
+}
+
+.lifecycle-hero-banner:hover {
+  border-color: rgba(0, 242, 254, 0.45);
+  box-shadow: 0 15px 35px rgba(0, 242, 254, 0.12);
+}
+
+.philosophy-icon-box {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: var(--gradient-1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #0b0f19;
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+  flex-shrink: 0;
+}
+
+.lifecycle-stats-box {
+  background: rgba(11, 15, 25, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+}
+
+.lifecycle-step-card {
+  background: rgba(17, 25, 40, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.lifecycle-step-card:hover {
+  transform: translateY(-6px);
+  background: rgba(17, 25, 40, 0.85);
+  border-color: rgba(0, 242, 254, 0.45);
+  box-shadow: 0 12px 30px rgba(0, 242, 254, 0.18);
+}
+
+.step-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: var(--primary-color);
+  background: rgba(0, 242, 254, 0.1);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.step-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 242, 254, 0.08);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.lifecycle-step-card:hover .step-icon-circle {
+  background: var(--gradient-1);
+  color: #0b0f19;
+  box-shadow: 0 0 18px rgba(0, 242, 254, 0.5);
+  transform: scale(1.1) rotate(5deg);
+}
+
+.step-deliverable {
+  background: rgba(0, 242, 254, 0.04);
+  border-left: 3px solid var(--primary-color);
+  padding: 10px 14px;
+  border-radius: 0 10px 10px 0;
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.deliverable-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  display: block;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.solution-archetype-card {
+  background: rgba(17, 25, 40, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.solution-archetype-card:hover {
+  transform: translateY(-6px);
+  background: rgba(17, 25, 40, 0.9);
+  border-color: rgba(0, 242, 254, 0.5);
+  box-shadow: 0 15px 35px rgba(0, 242, 254, 0.18);
+}
+
+.archetype-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background: rgba(0, 242, 254, 0.08);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.solution-archetype-card:hover .archetype-icon {
+  background: var(--gradient-1);
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+}
+
+.solution-archetype-card:hover .archetype-icon i {
+  color: #0b0f19 !important;
+}
+
+@media (max-width: 768px) {
+  .lifecycle-hero-banner {
+    padding: 1.5rem !important;
+  }
+  .philosophy-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+  }
+  .lifecycle-step-card,
+  .solution-archetype-card {
+    padding: 1.25rem !important;
+  }
+  .lifecycle-badge {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    padding: 5px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lifecycle-hero-banner {
+    padding: 1.15rem !important;
+  }
+  .philosophy-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+  }
+  .philosophy-icon-box i {
+    font-size: 1.2rem !important;
+  }
+  .step-icon-circle {
+    width: 38px;
+    height: 38px;
+    font-size: 0.95rem;
+  }
+  .step-badge {
+    font-size: 0.68rem;
+    padding: 2px 8px;
+  }
+  .step-deliverable {
+    padding: 8px 10px;
+  }
+  .deliverable-label {
+    font-size: 0.72rem;
+  }
+}
+
+
 
 
 
