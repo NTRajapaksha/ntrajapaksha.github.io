@@ -1691,37 +1691,19 @@ h1.gradient-text * {
 .achievement-card.active-glow,
 .skill-item.active-glow,
 .cert-item.active-glow,
-.education-card.active-glow,
-.soft-skill-card.active-glow,
 .lifecycle-step-card.active-glow,
 .solution-archetype-card.active-glow,
 .lifecycle-hero-banner.active-glow {
   transform: translateY(-4px) !important;
-  box-shadow: 0 0 25px rgba(0, 242, 254, 0.45), 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 8px 24px rgba(0, 242, 254, 0.24), 0 0 14px rgba(79, 70, 229, 0.18) !important;
   border-color: var(--primary-color) !important;
   background: rgba(17, 25, 40, 0.98) !important;
-}
-
-.lifecycle-step-card.active-glow .step-icon-circle {
-  background: var(--gradient-1) !important;
-  color: #0b0f19 !important;
-  box-shadow: 0 0 18px rgba(0, 242, 254, 0.6) !important;
-  transform: scale(1.08) rotate(5deg);
-}
-
-.solution-archetype-card.active-glow .archetype-icon {
-  background: var(--gradient-1) !important;
-  box-shadow: 0 0 20px rgba(0, 242, 254, 0.5) !important;
-}
-
-.solution-archetype-card.active-glow .archetype-icon i {
-  color: #0b0f19 !important;
 }
 
 /* ===== MOBILE GLOW & PERFORMANCE OPTIMIZATIONS ===== */
 @media (max-width: 768px) {
   /* Fix laggy scroll: Disable heavy blur calculation and use hardware acceleration */
-  .section-card, .project-card, .article-card, .achievement-card, .skill-item, .cert-item, .floating-nav, .tech-tag, .core-strength-card, .skill-tag, .education-card, .soft-skill-card, .lifecycle-step-card, .solution-archetype-card, .lifecycle-hero-banner {
+  .section-card, .project-card, .article-card, .achievement-card, .skill-item, .cert-item, .floating-nav, .tech-tag, .core-strength-card, .skill-tag, .lifecycle-step-card, .solution-archetype-card, .lifecycle-hero-banner {
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
     will-change: transform, opacity;
@@ -1740,15 +1722,11 @@ h1.gradient-text * {
   .achievement-card.active-glow,
   .skill-item.active-glow,
   .cert-item.active-glow,
-  .education-card.active-glow,
-  .soft-skill-card.active-glow,
   .lifecycle-step-card.active-glow,
   .solution-archetype-card.active-glow,
   .lifecycle-hero-banner.active-glow {
     transform: translateY(-4px) translateZ(0) !important;
     -webkit-transform: translateY(-4px) translateZ(0) !important;
-    box-shadow: 0 0 25px rgba(0, 242, 254, 0.45), 0 8px 24px rgba(0, 0, 0, 0.5) !important;
-    border-color: var(--primary-color) !important;
   }
 }
 
@@ -2029,6 +2007,29 @@ h1.gradient-text * {
     font-size: 0.72rem;
   }
 }
+
+/* Active Glow Mobile States for What I Build Elements */
+.lifecycle-step-card.active-glow .step-icon-circle {
+  background: var(--gradient-1) !important;
+  color: #0b0f19 !important;
+  box-shadow: 0 0 18px rgba(0, 242, 254, 0.5) !important;
+  transform: scale(1.1) rotate(5deg) !important;
+}
+
+.solution-archetype-card.active-glow .archetype-icon {
+  background: var(--gradient-1) !important;
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.4) !important;
+}
+
+.solution-archetype-card.active-glow .archetype-icon i {
+  color: #0b0f19 !important;
+}
+
+.lifecycle-hero-banner.active-glow .philosophy-icon-box {
+  box-shadow: 0 0 25px rgba(0, 242, 254, 0.6) !important;
+  transform: scale(1.05) !important;
+}
+
 
 
 
